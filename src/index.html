@@ -127,9 +127,9 @@
               </div>
             </form>
             <div class="product__images {{ class }}"> <!-- images -->
-              {{#each images}}
-              {{{ this }}}
-              {{/each}}
+              {{#each images}}                        <!-- loop each images-->
+              {{{ this }}}                            <!--single element - image being iterated by loop-->
+              {{/each}}                               <!--end loop-->
             </div>
           </div>
 
