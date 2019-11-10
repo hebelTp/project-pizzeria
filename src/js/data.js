@@ -79,6 +79,7 @@ dataSource.products = {
           gluten: {label: 'with extra gluten', price: 0},
         },
       },
+        
     },
   },
   salad: {
