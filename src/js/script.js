@@ -60,6 +60,7 @@
       thisProduct.data = data;
 
       thisProduct.renderInMenu();
+      thisProduct.initAccordion(); //wywołanie metody
       console.log('new Product', thisProduct);
     }
     renderInMenu() {
@@ -79,6 +80,31 @@
       const menuContainer = document.querySelector(select.containerOf.menu);
       /** add element to menu */
       menuContainer.appendChild(thisProduct.element);
+    }
+    initAccordion(){
+      const thisProduct = this;
+
+      /** find the clickable trigger (the element that should react to cliking ) */
+
+      /** START : click event listener to triger */
+
+        /** prevent default action for event */
+
+        /** toggle active class on element of thisProduct */
+
+        /** find all active products */
+
+        /**  START LOOP: for each active produkt */
+
+          /**  START: if the active product isn't the element of thisProdukt  */
+
+           /** remove class active for the active product */
+
+          /** END: if the active product isn't the element of thisProduct */
+
+          /** END LOOP: for each active product */
+
+      /** END: click event listener to triger */
     }
   }
 
