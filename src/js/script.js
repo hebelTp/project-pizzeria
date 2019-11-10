@@ -61,7 +61,7 @@
 
       thisProduct.renderInMenu();
       thisProduct.initAccordion(); //wywołanie metody
-      console.log('new Product', thisProduct);
+
     }
     renderInMenu() {
       const thisProduct = this;
@@ -69,13 +69,13 @@
       /** generate HTML based on template */
       //tworzę zmienną generatedHTML i wywołuję mętodę templates.menuProduct i przekazuję je dane produktu - atrybut
       const generatedHTML = templates.menuProduct(thisProduct.data);
-      //console.log(generatedHTML);
+
 
       /** create element using utils.createElementPromHTML */
       //////////////////////  method                ///////////////
       //element DOM o właściwości instancji  ??//
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
-      console.log('thisProduct.element', thisProduct.element);
+
       /** find menu container */
       const menuContainer = document.querySelector(select.containerOf.menu);
       /** add element to menu */
@@ -83,10 +83,16 @@
     }
     initAccordion(){
       const thisProduct = this;
+      console.log(thisProduct);
 
       /** find the clickable trigger (the element that should react to cliking ) */
+      const clickableTrigger = document.querySelector(select.menuProduct.clickable);
+      console.log(clickableTrigger);
 
       /** START : click event listener to triger */
+      clickableTrigger.addEventListener('click', function() {
+        console.log('click!');
+        });
 
         /** prevent default action for event */
 
@@ -111,8 +117,6 @@
   const app = {
     initMenu: function() {
       const thisApp = this;
-
-      console.log('thisApp.data', thisApp.data);
 
       for (let productData in thisApp.data.products ) {
         new Product (productData, thisApp.data.products[productData]);
