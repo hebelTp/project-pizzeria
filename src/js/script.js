@@ -62,6 +62,8 @@
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion(); //wywołanie metody
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
 
     }
     renderInMenu() {
@@ -91,7 +93,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
-   console.log(thisProduct.form)
+   console.log(thisProduct.formInputs)
     }
 
     initAccordion(){
@@ -130,6 +132,34 @@
         /** END: click event listener to triger */
       });
     }
+
+    initOrderForm(){
+      const thisProduct = this;
+      console.log('initOrderForm',thisProduct);
+      thisProduct.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+
+      for(let input of thisProduct.formInputs){
+        input.addEventListener('change', function(){
+          thisProduct.processOrder();
+        });
+      }
+
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+
+      });
+
+    }
+
+    processOrder(){
+      const thisProduct = this;
+      console.log('processOrder',thisProduct);
+    }
+
   }
 
   const app = {
