@@ -136,6 +136,7 @@
     initOrderForm(){
       const thisProduct = this;
       console.log('initOrderForm',thisProduct);
+
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
         thisProduct.processOrder();
@@ -158,6 +159,10 @@
     processOrder(){
       const thisProduct = this;
       console.log('processOrder',thisProduct);
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('formData',formData);
+
+
     }
 
   }
