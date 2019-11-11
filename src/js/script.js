@@ -91,13 +91,14 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+   console.log(thisProduct.form)
     }
 
     initAccordion(){
       const thisProduct = this;
 
       /** find the clickable trigger (the element that should react to cliking ) */
-      const clicableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      const clicableTrigger = thisProduct.accordionTrigger;
 
       /** START : click event listener to triger */
       clicableTrigger.addEventListener('click', function(){
