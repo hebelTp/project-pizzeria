@@ -201,6 +201,19 @@
 
             /* END ELSE IF: if option is not selected and option is default */
           }
+          /**[NEW] find all images with class active */
+
+          const activeImages = thisProduct.imageWrapper.querySelector();
+          console.log('activeImages', activeImages);
+
+          /**[NEW] START IF ELSE: if option is selected add active class classNames.MenuProduct.imageVisible */
+
+
+          /**[NEW] ELSE :  option is not selected  remove class active in classNamess.menuProduct.imageisible */
+
+          /**[NEW] END IF ELSE LOOP */
+
+
         /* END LOOP: for each optionId in param.options */
         }
       /* END LOOP: for each paramId in thisProduct.data.params */
