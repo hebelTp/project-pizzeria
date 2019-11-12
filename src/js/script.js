@@ -185,8 +185,6 @@
 
             /* add price of option to variable price */
             price += option.price ;
-            console.log('price', price);
-            console.log('option to variable price', option.price);
 
           /* END IF: if option is selected and option is not default */
           }
@@ -196,24 +194,25 @@
 
             /* deduct price of option from price */
             price -= option.price;
-            console.log ('opcion unmark', option.price);
-            console.log ('price', price);
 
             /* END ELSE IF: if option is not selected and option is default */
           }
-          /**[NEW] find all images with class active */
 
+          /**[NEW] find all images with class active */
           const activeImages = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId );
-          console.log('activeImages', activeImages);
 
           /**[NEW] START IF ELSE: if option is selected add active class classNames.MenuProduct.imageVisible */
-
+          if (optionSelected && activeImages) {
+            activeImages.classList.add(classNames.menuProduct.imageVisible);
 
           /**[NEW] ELSE :  option is not selected  remove class active in classNamess.menuProduct.imageisible */
+          } else {
+            if(!optionSelected && activeImages){
+              activeImages.classList.remove(classNames.menuProduct.imageVisible);
 
-          /**[NEW] END IF ELSE LOOP */
-
-
+              /**[NEW] END IF ELSE LOOP */
+            }
+          }
         /* END LOOP: for each optionId in param.options */
         }
       /* END LOOP: for each paramId in thisProduct.data.params */
