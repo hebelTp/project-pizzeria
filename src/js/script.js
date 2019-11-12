@@ -203,7 +203,7 @@
           }
           /**[NEW] find all images with class active */
 
-          const activeImages = thisProduct.imageWrapper.querySelector();
+          const activeImages = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId );
           console.log('activeImages', activeImages);
 
           /**[NEW] START IF ELSE: if option is selected add active class classNames.MenuProduct.imageVisible */
