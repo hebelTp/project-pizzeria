@@ -176,25 +176,28 @@
           const option = param.options[optionId];
 
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
-          //console.log(optionSelected);
+
           /* START IF: if option is selected and option is not default */
           if(optionSelected && !option.default){
-            console.log('optionSelected',optionSelected);
+            //console.log('optionSelected',optionSelected);
 
-          /* add price of option to variable price */
-          price += option.price ;
-          //thisProduct.price += option.price;
-          console.log('price', price);
-          console.log('option to variable price', option.price);
+            /* add price of option to variable price */
+            price += option.price ;
+            console.log('price', price);
+            console.log('option to variable price', option.price);
+
           /* END IF: if option is selected and option is not default */
           }
+
           /* START ELSE IF: if option is not selected and option is default */
           else if (!optionSelected && option.default ) {
-          /* deduct price of option from price */
+
+            /* deduct price of option from price */
             price -= option.price;
             console.log ('opcion unmark', option.price);
             console.log ('price', price);
-          /* END ELSE IF: if option is not selected and option is default */
+
+            /* END ELSE IF: if option is not selected and option is default */
           }
         /* END LOOP: for each optionId in param.options */
         }
@@ -204,6 +207,7 @@
       thisProduct.priceElem = price;
     }
   }
+
   const app = {
     initMenu: function() {
       const thisApp = this;
