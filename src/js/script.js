@@ -270,7 +270,7 @@
       thisWidget.value = newValue;
       console.log('newValue',newValue);
       thisWidget.input.value = thisWidget.value;
-      console.log('thisWidget,value', thisWidget.value);
+      console.log('thisWidget.value', thisWidget.value);
 
     }
 
@@ -278,10 +278,21 @@
 
       const thisWidget = this;
 
-      thisWidget.input.addEventListener('change', function(value) {
+      thisWidget.input.addEventListener('change', function() {
         console.log('thisWidget.input.value', thisWidget.input.value);
         thisWidget.input = thisWidget.input.value;
       });
+      thisWidget.linkIncrease.addEventListener('click', function(value) {
+
+        value.preventDefault();
+        console.log(thisWidget.value);
+        thisWidget.value = thisWidget.value + 1
+        console.log(thisWidget.value);
+        thisWidget.input.value = thisWidget.value;
+
+
+
+    });
 
 
     }
