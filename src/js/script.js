@@ -94,7 +94,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      console.log('thisProduct.imageWrapper - wszystkier aktywne', thisProduct.imageWrapper);
+      
     }
 
 
@@ -219,6 +219,15 @@
       }
       /* set the contents of thisProduct.priceElem to be the value of variable price */
       thisProduct.priceElem = price;
+    }
+  }
+
+  class AmountWidget {
+    constructor(element) {
+      const thisWidget = this ;
+
+      console.log('AmountWidget -- thisWidget :', thisWidget );
+      console.log('constructor arguments -- element', element)
     }
   }
 
