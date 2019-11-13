@@ -268,6 +268,7 @@
       /** TODO: Add Validation */
 
       thisWidget.value = newValue;
+      thisWidget.anounce();
       console.log('newValue',newValue);
       thisWidget.input.value = thisWidget.value;
       console.log('thisWidget.value', thisWidget.value);
@@ -282,26 +283,31 @@
         console.log('thisWidget.input.value', thisWidget.input.value);
         thisWidget.input = thisWidget.input.value;
       });
-      thisWidget.linkIncrease.addEventListener('click', function(value) {
+      thisWidget.linkIncrease.addEventListener('click', function(event) {
 
-        value.preventDefault();
+        event.preventDefault();
         console.log(thisWidget.value);
         thisWidget.value = thisWidget.value + 1;
         console.log(thisWidget.value);
         thisWidget.input.value = thisWidget.value;
       });
 
-      thisWidget.linkDecrease.addEventListener('click', function(value) {
+      thisWidget.linkDecrease.addEventListener('click', function(event) {
 
-        value.preventDefault();
+        event.preventDefault();
         console.log(thisWidget.value);
         thisWidget.value = thisWidget.value - 1;
         console.log(thisWidget.value);
         thisWidget.input.value = thisWidget.value;
       });
-
     }
 
+    anounce(){
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
+    }
 
   }
 
