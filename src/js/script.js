@@ -305,7 +305,7 @@
 
         event.preventDefault();
         console.log(thisWidget.value);
-        thisWidget.value.setValue(thisWidget.value - 1);
+        thisWidget.setValue(thisWidget.value - 1);
         // console.log(thisWidget.value);
         // thisWidget.input.value = thisWidget.value;
       });
