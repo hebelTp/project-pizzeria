@@ -286,14 +286,19 @@
 
         value.preventDefault();
         console.log(thisWidget.value);
-        thisWidget.value = thisWidget.value + 1
+        thisWidget.value = thisWidget.value + 1;
         console.log(thisWidget.value);
         thisWidget.input.value = thisWidget.value;
+      });
 
+      thisWidget.linkDecrease.addEventListener('click', function(value) {
 
-
-    });
-
+        value.preventDefault();
+        console.log(thisWidget.value);
+        thisWidget.value = thisWidget.value - 1;
+        console.log(thisWidget.value);
+        thisWidget.input.value = thisWidget.value;
+      });
 
     }
 
