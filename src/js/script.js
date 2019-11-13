@@ -226,7 +226,7 @@
       thisProduct.priceElem = price;
     }
 
-    initAmountWidget(){
+    initAmountWidget() {
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
@@ -235,10 +235,12 @@
   }
 
   class AmountWidget {
+
     constructor(element) {
       const thisWidget = this ;
 
       thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
       console.log('AmountWidget -- thisWidget :', thisWidget );
       console.log('constructor arguments -- element', element);
     }
@@ -255,6 +257,22 @@
       console.log('thisWidget.linkIncrease',thisWidget.linkIncrease);
 
     }
+
+    setValue(value) {
+
+      const thisWidget = this;
+
+      const newValue = parseInt(value);
+
+      /** TODO: Add Validation */
+
+      thisWidget.value = newValue;
+      console.log('newValue',newValue);
+      thisWidget.input.value = thisWidget.value;
+      console.log('thisWidget,value', thisWidget.value);
+
+    }
+
 
   }
 
