@@ -238,9 +238,24 @@
     constructor(element) {
       const thisWidget = this ;
 
+      thisWidget.getElements(element);
       console.log('AmountWidget -- thisWidget :', thisWidget );
       console.log('constructor arguments -- element', element);
     }
+
+    getElements(element) {
+      const thisWidget = this;
+
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      console.log('thisWidget.input',thisWidget.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      console.log('thisWidget.linkDecrease',thisWidget.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+      console.log('thisWidget.linkIncrease',thisWidget.linkIncrease);
+
+    }
+
   }
 
   const app = {
