@@ -65,6 +65,8 @@
       thisProduct.initOrderForm();
       thisProduct.processOrder();
 
+      console.log('new Product -- thisProduct:', thisProduct);
+
     }
     renderInMenu() {
       const thisProduct = this;
@@ -94,7 +96,9 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amoutdgetWidget);
+      console.log('thisProduct.amountWidgetElem', thisProduct.amountWidgetElem);
+
     }
 
 
@@ -227,7 +231,7 @@
       const thisWidget = this ;
 
       console.log('AmountWidget -- thisWidget :', thisWidget );
-      console.log('constructor arguments -- element', element)
+      console.log('constructor arguments -- element', element);
     }
   }
 
