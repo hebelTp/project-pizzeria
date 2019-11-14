@@ -298,22 +298,15 @@
       const thisWidget = this;
 
       const newValue = parseInt(value);
-
-      /** TODO: Add Validation */
-      setValue(value) {
-
-        const thisWidget = this;
-
-        const newValue = parseInt(value);
-
         /** TODO: Add Validation */
         if (newValue != thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
               thisWidget.value = newValue;
-              thisWidget.anounce;
+              thisWidget.anounce();
         }
       thisWidget.input.value = thisWidget.value;
+
       }
-      
+
         ///////alter to practice //////
 
     //   if (this.isValid(thisWidget.value, newValue)) {
@@ -335,7 +328,7 @@
 
       thisWidget.input.addEventListener('change', function() {
         console.log('thisWidget.input.value', thisWidget.input.value);
-        thisWidget.setValue(thisWidget.value );
+        thisWidget.setValue(thisWidget.input.value );
       });
       thisWidget.linkIncrease.addEventListener('click', function(event) {
 
@@ -352,14 +345,12 @@
     }
 
     anounce(){
-      console.log('......')
+
       const thisWidget = this;
 
       const event = new Event('updated');
       thisWidget.element.dispatchEvent(event);
-
     }
-
   }
 
   class Cart {
@@ -367,7 +358,9 @@
       const thisCart = this;
 
       thisCart.products = [];
+
       thisCart.getElements(element);
+
       console.log('new Cart --> this.cart', thisCart);
     }
 
