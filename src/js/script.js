@@ -356,6 +356,7 @@
   class Cart {
     constructor(element) {
       const thisCart = this;
+      console.log(thisCart);
 
       thisCart.products = [];
 
@@ -388,6 +389,13 @@
       thisApp.data = dataSource;
     },
 
+    initCart: function(){
+      const thisApp = this;
+
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
+    },
+
     init: function() {
       const thisApp = this;
       console.log('*** App starting ***');
@@ -397,6 +405,7 @@
       console.log('templates:', templates);
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
 
     },
   };
