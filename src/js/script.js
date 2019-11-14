@@ -300,16 +300,34 @@
       const newValue = parseInt(value);
 
       /** TODO: Add Validation */
-      if (newValue != thisWidget.value) {
-        if (newValue >= settings.amountWidget.defaultMin) {
-          if (newValue <= settings.amountWidget.defaultMax) {
-            thisWidget.value = newValue;
-            thisWidget.anounce;
-          }
+      setValue(value) {
+
+        const thisWidget = this;
+
+        const newValue = parseInt(value);
+
+        /** TODO: Add Validation */
+        if (newValue != thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
+              thisWidget.value = newValue;
+              thisWidget.anounce;
         }
+      thisWidget.input.value = thisWidget.value;
       }
-    thisWidget.input.value = thisWidget.value;
-    }
+      
+        ///////alter to practice //////
+
+    //   if (this.isValid(thisWidget.value, newValue)) {
+    //         thisWidget.value = newValue;
+    //         thisWidget.anounce();
+    //       }
+    // thisWidget.input.value = thisWidget.value;
+    // }
+
+    // isValid(oldValue, newValue){
+    //   return newValue != oldValue &&
+    //   newValue >= settings.amountWidget.defaultMin &&
+    //   newValue <= settings.amountWidget.defaultMax
+    // }
 
     initActions () {
 
@@ -334,10 +352,12 @@
     }
 
     anounce(){
+      console.log('......')
       const thisWidget = this;
 
       const event = new Event('updated');
       thisWidget.element.dispatchEvent(event);
+
     }
 
   }
