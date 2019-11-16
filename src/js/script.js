@@ -257,7 +257,7 @@
       price *= thisProduct.amountWidget.value;
 
       thisProduct.priceElem.innerHTML = price;
-      }
+    }
 
     initAmountWidget() {
       const thisProduct = this;
@@ -298,16 +298,16 @@
       const thisWidget = this;
 
       const newValue = parseInt(value);
-        /** TODO: Add Validation */
-        if (newValue != thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
-              thisWidget.value = newValue;
-              thisWidget.anounce();
-        }
+      /** TODO: Add Validation */
+      if (newValue != thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
+        thisWidget.value = newValue;
+        thisWidget.anounce();
+      }
       thisWidget.input.value = thisWidget.value;
 
-      }
+    }
 
-        ///////alter to practice //////
+    ///////alter to practice //////
 
     //   if (this.isValid(thisWidget.value, newValue)) {
     //         thisWidget.value = newValue;
@@ -326,6 +326,7 @@
 
       const thisWidget = this;
 
+
       thisWidget.input.addEventListener('change', function() {
         console.log('thisWidget.input.value', thisWidget.input.value);
         thisWidget.setValue(thisWidget.input.value );
@@ -342,6 +343,8 @@
         thisWidget.setValue(thisWidget.value - 1);
       });
 
+
+
     }
 
     anounce(){
@@ -353,27 +356,41 @@
     }
   }
 
-  class Cart {
-    constructor(element) {
-      const thisCart = this;
-      console.log(thisCart);
+  // class Cart {
+  //   constructor(element) {
+  //     const thisCart = this;
+  //     console.log(thisCart);
 
-      thisCart.products = [];
+  //     thisCart.products = [];
 
-      thisCart.getElements(element);
+  //     thisCart.getElements(element);
+  //     thisCart.initActions(element);
 
-      console.log('new Cart --> this.cart', thisCart);
-    }
+  //     console.log('new Cart --> this.cart', thisCart);
+  //   }
 
-    getElements(element) {
+  //   getElements(element) {
 
-      const thisCart = this;
+  //     const thisCart = this;
 
-      thisCart.dom = {};
-      thisCart.dom.wrapper = element;
-    }
+  //     thisCart.dom.toggleTrigger = thisCart.dom.wrapper.element.querySelector(select.cart.toggleTrigger);
 
-  }
+  //     thisCart.dom = {};
+  //     thisCart.dom.wrapper = element;
+
+
+  //   }
+
+  //   initActions (element) {
+  //     const thisCart = this;
+
+  //     thisCart.dom.toggleTrigger.addEventListener('click', function(){
+  //    //   thisCart.dom.wrapper ?? classNames.cart.wrapperActive;
+  //     });
+
+  //   }
+
+  // }
 
   const app = {
     initMenu: function() {
