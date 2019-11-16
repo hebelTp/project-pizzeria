@@ -356,41 +356,42 @@
     }
   }
 
-  // class Cart {
-  //   constructor(element) {
-  //     const thisCart = this;
-  //     console.log(thisCart);
+  class Cart {
+    constructor(element) {
+      const thisCart = this;
+      //     console.log(thisCart);
 
-  //     thisCart.products = [];
+      thisCart.products = [];
 
-  //     thisCart.getElements(element);
-  //     thisCart.initActions(element);
+      thisCart.getElements(element);
+      thisCart.initActions(element);
 
-  //     console.log('new Cart --> this.cart', thisCart);
-  //   }
+      console.log('new Cart --> this.cart', thisCart);
+    }
 
-  //   getElements(element) {
+    getElements(element) {
 
-  //     const thisCart = this;
-
-  //     thisCart.dom.toggleTrigger = thisCart.dom.wrapper.element.querySelector(select.cart.toggleTrigger);
-
-  //     thisCart.dom = {};
-  //     thisCart.dom.wrapper = element;
+      const thisCart = this;
 
 
-  //   }
 
-  //   initActions (element) {
-  //     const thisCart = this;
+      thisCart.dom = {};
+      thisCart.dom.wrapper = element;
+      //console.log(element);
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+      console.log(thisCart.dom.toggleTrigger)
+      //thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
 
-  //     thisCart.dom.toggleTrigger.addEventListener('click', function(){
-  //    //   thisCart.dom.wrapper ?? classNames.cart.wrapperActive;
-  //     });
+    initActions (element) {
+      const thisCart = this;
 
-  //   }
+      thisCart.dom.toggleTrigger.addEventListener('click', function(){
+        thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
+    }
 
-  // }
+  }
 
   const app = {
     initMenu: function() {
@@ -406,7 +407,7 @@
       thisApp.data = dataSource;
     },
 
-    initCart: function(){
+    initCart: function() {
       const thisApp = this;
 
       const cartElem = document.querySelector(select.containerOf.cart);
