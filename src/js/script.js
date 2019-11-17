@@ -200,9 +200,9 @@
 
       /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
-
-      /* set variable price to equal thisProduct.data.price */
       thisProduct.params = {};
+      /* set variable price to equal thisProduct.data.price */
+
       console.log('thisProduct.params', thisProduct.params);
       let price = thisProduct.data.price;
 
@@ -244,6 +244,18 @@
           if (optionSelected && activeImages) {
             activeImages.classList.add(classNames.menuProduct.imageVisible);
 
+            /** [NEW NEW LOOP: new place of the loop ] */
+            if(!thisProduct.params[paramId]) {
+
+              thisProduct.params[paramId] = {
+
+                label: param.label,
+                options: {},
+              };
+            }
+            thisProduct.params[paramId].options[optionId] = option.label;
+            /*[NEW NEW END LOOP ]
+
           /**[NEW] ELSE :  option is not selected  remove class active in classNamess.menuProduct.imageisible */
           } else {
             if(activeImages){
@@ -259,13 +271,11 @@
       /* set the contents of thisProduct.priceElem to be the value of variable price */
       /** multiply price by amount */
       thisProduct.priceSingle = price;
-      console.log('thisProduct.priceSingle', thisProduct.priceSingle);
-      console.log('price', price);
       thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
-      console.log('thisProduct.price', thisProduct.price)
-      //price *= thisProduct.amountWidget.value;
+      //[OLD] price *= thisProduct.amountWidget.value;
       /** set the contentsof thisProduct.priceElem to be the value of variable price  */
       thisProduct.priceElem.innerHTML = thisProduct.price;
+      console.log('thisProduct.params',thisProduct.params);
     }
 
     initAmountWidget() {
