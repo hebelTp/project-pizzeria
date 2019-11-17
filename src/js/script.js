@@ -202,6 +202,8 @@
       const formData = utils.serializeFormToObject(thisProduct.form);
 
       /* set variable price to equal thisProduct.data.price */
+      thisProduct.params = {};
+      console.log('thisProduct.params', thisProduct.params);
       let price = thisProduct.data.price;
 
       /* START LOOP: for each paramId in thisProduct.data.params */
@@ -256,9 +258,14 @@
       }
       /* set the contents of thisProduct.priceElem to be the value of variable price */
       /** multiply price by amount */
-      price *= thisProduct.amountWidget.value;
+      thisProduct.priceSingle = price;
+      console.log('thisProduct.priceSingle', thisProduct.priceSingle);
+      console.log('price', price);
+      thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
+      console.log('thisProduct.price', thisProduct.price)
+      //price *= thisProduct.amountWidget.value;
       /** set the contentsof thisProduct.priceElem to be the value of variable price  */
-      thisProduct.priceElem.innerHTML = price;
+      thisProduct.priceElem.innerHTML = thisProduct.price;
     }
 
     initAmountWidget() {
