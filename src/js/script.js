@@ -202,8 +202,6 @@
       const formData = utils.serializeFormToObject(thisProduct.form);
       thisProduct.params = {};
       /* set variable price to equal thisProduct.data.price */
-
-      console.log('thisProduct.params', thisProduct.params);
       let price = thisProduct.data.price;
 
       /* START LOOP: for each paramId in thisProduct.data.params */
@@ -275,8 +273,7 @@
       //[OLD] price *= thisProduct.amountWidget.value;
       /** set the contentsof thisProduct.priceElem to be the value of variable price  */
       thisProduct.priceElem.innerHTML = thisProduct.price;
-      console.log('thisProduct.params',thisProduct.params);
-    }
+      }
 
     initAmountWidget() {
       const thisProduct = this;
@@ -290,6 +287,8 @@
 
     addToCart(){
       const thisProduct = this;
+      thisProduct.name = thisProduct.data.name;
+      thisProduct.amount =  thisProduct.amountWidget.value;
       app.cart.add(thisProduct);
     }
 
@@ -352,7 +351,6 @@
 
 
       thisWidget.input.addEventListener('change', function() {
-        console.log('thisWidget.input.value', thisWidget.input.value);
         thisWidget.setValue(thisWidget.input.value );
       });
       thisWidget.linkIncrease.addEventListener('click', function(event) {
@@ -383,14 +381,11 @@
   class Cart {
     constructor(element) {
       const thisCart = this;
-      //     console.log(thisCart);
 
       thisCart.products = [];
 
       thisCart.getElements(element);
       thisCart.initActions(element);
-
-      console.log('new Cart --> this.cart', thisCart);
     }
 
     getElements(element) {
@@ -401,9 +396,8 @@
 
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
-      //console.log(element);
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
-      console.log(thisCart.dom.toggleTrigger)
+      thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
       //thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
     }
 
@@ -416,8 +410,12 @@
     }
 
     add(menuProduct) {
-      // const thisCart = this;
-      console.log('adding product', menuProduct);
+      const thisCart = this;
+      /** generate HTML based on template */
+      //tworzę zmienną generatedHTML i wywołuję mętodę templates.cartProduct i przekazuję jej cały obiekt produktu.
+      const generatedHTML = templates.cartProduct(menuProduct);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      thisCart.dom.productList.appendChild(generatedDOM);
     }
   }
 
