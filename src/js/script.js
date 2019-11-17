@@ -189,6 +189,7 @@
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
 
       });
 
@@ -267,6 +268,11 @@
         thisProduct.processOrder();
       });
 
+    }
+
+    addToCart(){
+      const thisProduct = this;
+      app.cart.add(thisProduct);
     }
 
   }
@@ -391,6 +397,10 @@
       });
     }
 
+    add(menuProduct) {
+      // const thisCart = this;
+      console.log('adding product', menuProduct);
+    }
   }
 
   const app = {
@@ -412,6 +422,7 @@
 
       const cartElem = document.querySelector(select.containerOf.cart);
       thisApp.cart = new Cart(cartElem);
+
     },
 
     init: function() {
