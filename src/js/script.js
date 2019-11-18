@@ -416,7 +416,30 @@
       const generatedHTML = templates.cartProduct(menuProduct);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(generatedDOM);
+      thisCart.products.push(menuProduct);
+      console.log ('thisCart.products', thisCart.products);
+      console.log(menuProduct);
     }
+  }
+
+  class CartProduct {
+    constructor(menuProduct, element) {
+
+      thisCartProduct = this;
+
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.priceSingle = menuProduct.priceSingle;
+      thisCartProduct.amount = menuProduct.amount;
+      thisCartProduct.params = JSON.parse(JSON.stringyfy(menuProduct.params));
+
+      thisCartProduct.getElements(element);
+      console.log('thisCartProduct', thisCartProduct);
+
+
+    }
+
   }
 
   const app = {
