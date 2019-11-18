@@ -416,13 +416,14 @@
       const generatedHTML = templates.cartProduct(menuProduct);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(generatedDOM);
-      thisCart.products.push(menuProduct);
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
       console.log ('thisCart.products', thisCart.products);
       console.log(menuProduct);
+
     }
   }
 
-  class cartProduct {
+  class CartProduct {
     constructor(menuProduct, element) {
 
       const thisCartProduct = this;
@@ -432,7 +433,7 @@
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.amount = menuProduct.amount;
-      thisCartProduct.params = JSON.parse(JSON.stringyfy(menuProduct.params));
+      thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
 
       thisCartProduct.getElements(element);
       console.log('newCartProduct', thisCartProduct);
