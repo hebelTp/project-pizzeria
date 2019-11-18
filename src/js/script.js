@@ -273,7 +273,7 @@
       //[OLD] price *= thisProduct.amountWidget.value;
       /** set the contentsof thisProduct.priceElem to be the value of variable price  */
       thisProduct.priceElem.innerHTML = thisProduct.price;
-      }
+    }
 
     initAmountWidget() {
       const thisProduct = this;
@@ -422,10 +422,10 @@
     }
   }
 
-  class CartProduct {
+  class cartProduct {
     constructor(menuProduct, element) {
 
-      thisCartProduct = this;
+      const thisCartProduct = this;
 
       thisCartProduct.id = menuProduct.id;
       thisCartProduct.name = menuProduct.name;
@@ -435,7 +435,23 @@
       thisCartProduct.params = JSON.parse(JSON.stringyfy(menuProduct.params));
 
       thisCartProduct.getElements(element);
-      console.log('thisCartProduct', thisCartProduct);
+      console.log('newCartProduct', thisCartProduct);
+      console.log('productData', menuProduct);
+
+
+    }
+
+    getElements(element){
+      const thisCartProduct = this;
+
+      thisCartProduct.dom = {};
+
+      thisCartProduct.dom.wrapper = element;
+      console.log(thisCartProduct.dom.wrapper);
+      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper. querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
 
 
     }
@@ -474,6 +490,7 @@
       thisApp.initData();
       thisApp.initMenu();
       thisApp.initCart();
+
 
     },
   };
