@@ -384,6 +384,8 @@
 
       thisCart.products = [];
 
+      thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
+      console.log('thisCart.deliveryFee', thisCart.deliveryFee);
       thisCart.getElements(element);
       thisCart.initActions(element);
     }
