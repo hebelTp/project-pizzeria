@@ -421,8 +421,27 @@
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(generatedDOM);
       thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
-
+      thisCart.update();
     }
+    update() {
+      const thisCart = this;
+
+      thisCart.totalNumber = 0;
+      thisCart.subtotalPrice = 0;
+
+      const cartProducts = thisCart.products;
+      for(let cartProduct of cartProducts){
+      //                                                           console.log(cartProduct);
+        thisCart.subtotalPrice += cartProduct.price;
+        thisCart.totalNumber =+ cartProduct.amount;
+      //                                                           console.log('cartProduct.price',cartProduct.price);
+      //                                                           console.log('cartProduct.amount', cartProduct.amount);
+      }
+      thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+      //                                                           console.log('thisCart.totalPrice', thisCart.totalPrice);
+    }
+
+
   }
 
   class CartProduct {
