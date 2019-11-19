@@ -394,15 +394,19 @@
 
       const thisCart = this;
 
-
-
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
-
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
-
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
       //thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+
+      /* [NEW] current sums */
+      thisCart.renderTotalsKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
+      for(let key of thisCart.renderTotalsKeys) {
+        thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
+
+      }
+      console.log('thisCart.renderTotalsKeys', thisCart.renderTotalsKeys);
     }
 
     initActions (element) {
@@ -439,6 +443,13 @@
       }
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
       //                                                           console.log('thisCart.totalPrice', thisCart.totalPrice);
+
+      for(let key of thisCart.renderTotalsKeys) {
+        for(let elem of thisCart.dom[key]) {
+          elem.innerHTML = thisCart[key];
+        }
+
+      }
     }
 
 
