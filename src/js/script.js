@@ -419,8 +419,6 @@
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(generatedDOM);
       thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
-      console.log ('thisCart.products', thisCart.products);
-      console.log(menuProduct);
 
     }
   }
@@ -439,10 +437,6 @@
 
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget(menuProduct, element);
-      console.log('newCartProduct', thisCartProduct);
-      console.log('productData', menuProduct);
-
-
     }
 
     getElements(element) {
@@ -451,7 +445,6 @@
       thisCartProduct.dom = {};
 
       thisCartProduct.dom.wrapper = element;
-      console.log(thisCartProduct.dom.wrapper);
       thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
       thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
       thisCartProduct.dom.edit = thisCartProduct.dom.wrapper. querySelector(select.cartProduct.edit);
@@ -462,17 +455,11 @@
 
     initAmountWidget() {
       const thisCartProduct = this;
-      console.log(thisCartProduct);
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
       thisCartProduct.dom.amountWidget.addEventListener('updated', function(event) {
-        // thisCartProduct.processOrder();
         thisCartProduct.amount = thisCartProduct.amountWidget.value;
-        console.log('...',thisCartProduct.amount)
         thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
-        console.log(thisCartProduct.price);
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
-
-
       });
 
     }
