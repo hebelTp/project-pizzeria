@@ -391,6 +391,7 @@
       console.log('thisCart.deliveryFee', thisCart.deliveryFee);
       thisCart.getElements(element);
       thisCart.initActions(element);
+     // thisCart.remove();
     }
 
     getElements(element) {
@@ -412,7 +413,7 @@
       console.log('thisCart.renderTotalsKeys', thisCart.renderTotalsKeys);
     }
 
-    initActions (element) {
+    initActions(element) {
       const thisCart = this;
 
       thisCart.dom.toggleTrigger.addEventListener('click', function(){
@@ -423,8 +424,14 @@
         thisCart.update();
       });
 
+      thisCart.dom.productList.addEventListener('remove', function(){
+        thisCart.remove(event.detail.cartProduct);
+        console.log(thisCart)
+      });
+
 
     }
+
 
     add(menuProduct) {
       const thisCart = this;
@@ -459,6 +466,20 @@
         }
 
       }
+    }
+
+    remove(cartProduct) {
+
+      const thisCart = this;
+
+      const index = thisCart.products.indexOf(cartProduct);
+
+      const removedElementIndex = thisCart.products.splice(index);
+      
+      const  removed = thisCart.products;
+
+      cartProduct.dom.wrapper.remove();
+
     }
 
 
