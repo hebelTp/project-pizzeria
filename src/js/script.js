@@ -478,6 +478,9 @@
 
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget(menuProduct, element);
+      thisCartProduct.remove();
+      thisCartProduct.initActions();
+
     }
 
     getElements(element) {
@@ -507,7 +510,7 @@
     remove() {
       const thisCartProduct = this;
 
-      const event = new CustomerEvent('remove', {
+      const event = new CustomEvent('remove', {
         bubbles: true,
         detail: {
           cartProduct: thisCartProduct,
@@ -515,6 +518,20 @@
       });
 
       thisCartProduct.dom.wrapper.dispatchEvent(event);
+    }
+
+    initActions() {
+
+      const thisCartProduct = this;
+      console.log(thisCartProduct.dom.edit);
+      thisCartProduct.dom.edit.addEventListener('click', function(){
+        event.preventDefault();
+      });
+      thisCartProduct.dom.remove.addEventListener('click', function(){
+        event.preventDefault();
+        thisCartProduct.dom.wrapper.remove();
+      });
+
     }
 
   }
