@@ -507,7 +507,7 @@
       });
     }
 
-    remove() {
+    remove(productList) {
       const thisCartProduct = this;
 
       const event = new CustomEvent('remove', {
@@ -524,12 +524,14 @@
 
       const thisCartProduct = this;
       console.log(thisCartProduct.dom.edit);
-      thisCartProduct.dom.edit.addEventListener('click', function(){
+      thisCartProduct.dom.edit.addEventListener('click', function(event){
         event.preventDefault();
       });
-      thisCartProduct.dom.remove.addEventListener('click', function(){
+      thisCartProduct.dom.remove.addEventListener('click', function(event){
         event.preventDefault();
-        thisCartProduct.dom.wrapper.remove();
+        thisCartProduct.remove();
+        console.log(thisCartProduct)
+
       });
 
     }
