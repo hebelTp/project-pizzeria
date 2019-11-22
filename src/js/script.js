@@ -582,6 +582,7 @@
       const url = settings.db.url + '/' + settings.db.product;
       console.log(url);
       fetch(url)
+        // eslint-disable-next-line no-unused-vars
         .then(function(rawResponse){
         })
         .then(function(parsedResponse){
@@ -591,7 +592,7 @@
           /* execute initMenu method */
           thisApp.initMenu();
         });
-        console.log('thisApp.data', JSON.stringify(thisApp.data);
+      //console.log('thisApp.data', JSON.stringify(thisApp.data);
     },
 
     initCart: function() {
