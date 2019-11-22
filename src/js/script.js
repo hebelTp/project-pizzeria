@@ -404,13 +404,19 @@
 
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
+
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
       //thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.formSubmit);
-      console.log(thisCart.dom.form);
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
+      // console.log(select.cart.formSubmit)
+      thisCart.dom.inputPhone = thisCart.dom.wrapper.querySelectorAll(select.cart.phone);
+      thisCart.dom.inputAddress = thisCart.dom.wrapper.querySelector(select.cart.adress);
+      console.log(thisCart.dom.inputAddress);
 
-      /* [NEW] current sums */
+
+
+/* [NEW] current sums */
       thisCart.renderTotalsKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
       for(let key of thisCart.renderTotalsKeys) {
         thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
@@ -438,16 +444,23 @@
       thisCart.dom.form.addEventListener('submit', function(event){
         event.preventDefault();
         thisCart.sendOrder();
-        console.log('zzz',event);
+
       });
     }
 
     sendOrder(){
+      const thisCart = this;
       const url = settings.db.url + '/' + settings.db.order;
 
+
       const payload = {
-        adress: 'test',
+        phone: thisCart.dom.inputPhone,
+        adress: thisCart.dom.inputAddress,
+        totalNumber: thisCart.totalNumber,
+        subtotalPrice: thisCart.subtotalPrice,
         totalPrice: thisCart.totalPrice,
+        deliveryFee: thisCart.deliveryFee,
+        products : [],
       };
 
       const options = {
@@ -458,6 +471,12 @@
         body: JSON.stringify(payload),
       };
 
+      fetch(url, options)
+        .then(function(response) {
+          return response.json();
+        }).then (function(parsedResponse){
+          console.log('parsedResponse', parsedResponse);
+        });
     }
 
 
