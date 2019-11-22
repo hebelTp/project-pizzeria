@@ -416,7 +416,7 @@
 
 
 
-/* [NEW] current sums */
+      /* [NEW] current sums */
       thisCart.renderTotalsKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
       for(let key of thisCart.renderTotalsKeys) {
         thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
@@ -613,14 +613,14 @@
     getData() {
 
       const thisCartProduct = this;
-      const productDataDescription = {
+      const productDataDescription = { products: {
         id: thisCartProduct.id,
         amount: thisCartProduct.amount,
         price: thisCartProduct.price,
         priceSingle: thisCartProduct.priceSingle,
         params: thisCartProduct.params ,
+      }
       };
-
       console.log(productDataDescription);
 
 
