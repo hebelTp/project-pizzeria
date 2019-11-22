@@ -404,9 +404,12 @@
 
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
+      console.log(thisCart.dom.wrapper);
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
       //thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.formSubmit);
+      console.log(thisCart.dom.form);
 
       /* [NEW] current sums */
       thisCart.renderTotalsKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
