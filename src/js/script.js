@@ -462,6 +462,9 @@
         deliveryFee: thisCart.deliveryFee,
         products : [],
       };
+      for(let product of thisCart.products) {
+        payload.products.push(product.getData());
+      }
 
       const options = {
         method: 'POST',
@@ -604,6 +607,22 @@
         thisCartProduct.remove();
 
       });
+
+    }
+
+    getData() {
+
+      const thisCartProduct = this;
+      const productDataDescription = {
+        id: thisCartProduct.id,
+        amount: thisCartProduct.amount,
+        price: thisCartProduct.price,
+        priceSingle: thisCartProduct.priceSingle,
+        params: thisCartProduct.params ,
+      };
+
+      console.log(productDataDescription);
+
 
     }
 
