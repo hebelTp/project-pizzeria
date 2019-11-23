@@ -1,3 +1,4 @@
+/* global Handlebars */
 export const select = {
   templateOf: {
     menuProduct: '#template-menu-product',
@@ -85,3 +86,5 @@ export const templates = {
   cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   // CODE ADDED END
 };
+
+
