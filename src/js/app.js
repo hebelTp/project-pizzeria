@@ -11,7 +11,18 @@ const app = {
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
-    thisApp.activatePage(thisApp.pages[0].id);
+    const idFromHash = window.location.hash.replace('#/', '');
+
+    let pageMAtchingHash = thisApp.pages[0].id;
+
+    for(let page of thisApp.pages) {
+      if(page.id == idFromHash){
+        pageMAtchingHash = page.id;
+        break;
+      }
+    }
+
+    thisApp.activatePage(pageMAtchingHash);
 
     for(let link of thisApp.navLinks) {
       link.addEventListener('click', function(event) {
@@ -20,12 +31,17 @@ const app = {
 
         /** get page id from href attribute  */
         const id = clickedElement.getAttribute('href').replace('#', '');
-        console.log(id);
+
         /** run thisApp.activatePage with that id */
+        thisApp.activatePage(id);
+
+        /** cange URL hash */
+        window.location.hash = '#/' + id;
 
       });
 
     }
+
   },
 
   activatePage: function(pageId) {
@@ -41,7 +57,7 @@ const app = {
       // }
 
       //SECOND VERSION TOGGLE METHOD THE SAME
-      page.classList.add(classNames.pages.active, page.id == pageId);
+      page.classList.toggle(classNames.pages.active, page.id == pageId);
     }
 
     /**add class "active" to matching LINKS , remove from non-matching */
@@ -49,7 +65,7 @@ const app = {
     for (let link of thisApp.navLinks) {
 
       //SECOND VERSION TOGGLE METHOD
-      link.classList.add(
+      link.classList.toggle(
         classNames.nav.active,
         link.getAttribute('href') == '#' + pageId
       );
