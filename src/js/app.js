@@ -5,6 +5,24 @@ import Cart from './components/Cart.js';
 
 
 const app = {
+  initPages: function(){
+    const thisApp = this;
+
+    thisApp.pages = document.querySelector(select.containerOf.pages).children;
+
+    thisApp.activatePage(thisApp.pages[0].id);
+    console.log(thisApp);
+  },
+
+  activatePage: function(pageId) {
+    const thisApp = this;
+
+    //   /**add class "active" to matching pages, remove from non-matching */
+
+    //   /**add class "active" to matching pages, remove from non-matching */
+
+  },
+
   initMenu: function() {
     const thisApp = this;
 
@@ -54,6 +72,8 @@ const app = {
     console.log('classNames:', classNames);
     console.log('settings:', settings);
     console.log('templates:', templates);
+
+    thisApp.initPages();
     thisApp.initData();
     //thisApp.initMenu();
     thisApp.initCart();
