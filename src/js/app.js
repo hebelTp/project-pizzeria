@@ -12,6 +12,20 @@ const app = {
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
     thisApp.activatePage(thisApp.pages[0].id);
+
+    for(let link of thisApp.navLinks) {
+      link.addEventListener('click', function(event) {
+        const clickedElement = this;
+        event.preventDefault();
+
+        /** get page id from href attribute  */
+        const id = clickedElement.getAttribute('href').replace('#', '');
+        console.log(id);
+        /** run thisApp.activatePage with that id */
+
+      });
+
+    }
   },
 
   activatePage: function(pageId) {
