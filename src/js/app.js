@@ -9,18 +9,37 @@ const app = {
     const thisApp = this;
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
+    thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
     thisApp.activatePage(thisApp.pages[0].id);
-    console.log(thisApp);
   },
 
   activatePage: function(pageId) {
     const thisApp = this;
+    /**add class "active" to matching pages, remove from non-matching */
 
-    //   /**add class "active" to matching pages, remove from non-matching */
+    for (let page of thisApp.pages) {
+      // FIRST VERSION
+      // if(page.id == pageId){
+      //   page.classList.add(classNames.pages.active);
+      // } else {
+      //   page.classList.remove(classNames.pages.active);
+      // }
 
-    //   /**add class "active" to matching pages, remove from non-matching */
+      //SECOND VERSION TOGGLE METHOD THE SAME
+      page.classList.add(classNames.pages.active, page.id == pageId);
+    }
 
+    /**add class "active" to matching LINKS , remove from non-matching */
+
+    for (let link of thisApp.navLinks) {
+
+      //SECOND VERSION TOGGLE METHOD
+      link.classList.add(
+        classNames.nav.active,
+        link.getAttribute('href') == '#' + pageId
+      );
+    }
   },
 
   initMenu: function() {
