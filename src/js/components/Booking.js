@@ -1,10 +1,8 @@
-import { templates} from '../settings.js';
+import { templates, select} from '../settings.js';
 import {utils} from '../utils.js';
 class Booking {
   constructor(bookingElement){
     const thisBooking = this;
-
-    console.log('Booking', thisBooking);
 
     thisBooking.render(bookingElement);
     thisBooking.initWidgets();
@@ -15,7 +13,6 @@ class Booking {
 
     /** generate HTML based on template */
     const generatedHTML = templates.bookingWidget();
-    console.log(generatedHTML);
 
     thisBooking.dom = {};
     //thisBooking.dom.wrapper = ;
@@ -23,8 +20,11 @@ class Booking {
 
     thisBooking.dom.wrapper = utils.createDOMFromHTML(generatedHTML);
     console.log(thisBooking.dom.wrapper);
-
     element.appendChild(thisBooking.dom.wrapper);
+    thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
+    console.log(thisBooking.dom.peopleAmount);
+    thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+    console.log(thisBooking.dom.hoursAmount);
   }
 
   initWidgets() {
