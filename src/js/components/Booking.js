@@ -20,12 +20,11 @@ class Booking {
     thisBooking.dom.wrapper = element;
 
     thisBooking.dom.wrapper = utils.createDOMFromHTML(generatedHTML);
-    console.log(thisBooking.dom.wrapper);
+
     element.appendChild(thisBooking.dom.wrapper);
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-    console.log(thisBooking.dom.peopleAmount);
+
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
-    console.log(thisBooking.dom.hoursAmount);
   }
 
   initWidgets() {
