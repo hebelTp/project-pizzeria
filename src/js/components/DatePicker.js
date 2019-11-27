@@ -20,6 +20,27 @@ class DatePicker extends BaseWidget {
     // console.log(this.minDate);
     // console.log(this.maxDate);
     // console.log(thisWidget)
+    // eslint-disable-next-line no-undef
+    flatpickr(thisWidget.dom.input, {
+      enableTime: true,
+      dateFormat: 'Y-m-d H:i',
+      minDate: this.minDate,
+      maxDate: thisWidget.maxDate,
+      /** monday start */
+      'disable': [
+        function(date) {
+          // return true to disable
+          return (date.getDay() === 1 || date.getDay() === 7);
+
+        }
+      ],
+      'locale': {
+        'firstDayOfWeek': 1 // start week on Monday
+      }
+
+
+    } );
+    console.log(thisWidget)
   }
 
   parseValue (value){
@@ -31,7 +52,6 @@ class DatePicker extends BaseWidget {
   }
 
   renderValue() {
-
   }
 }
 export default DatePicker;
