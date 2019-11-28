@@ -3,6 +3,7 @@ import {utils} from '../utils.js';
 import AmountWidget from './AmountWidget.js';
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
+import { settings } from '../settings.js';
 
 class Booking {
   constructor(bookingElement){
@@ -10,6 +11,34 @@ class Booking {
 
     thisBooking.render(bookingElement);
     thisBooking.initWidgets();
+    thisBooking.getData();
+  }
+
+  getData(){
+    const thisBooking = this;
+
+    const params = {
+      booking: [
+
+      ],
+      eventsCurrent: [
+
+      ],
+      eventsRepeat: [
+
+      ],
+
+    };
+
+    console.log('getData params', params);
+
+    const urls ={
+      booking:        settings.db.url + '/' + settings.db.booking + '?' + params.booking.join('&'),
+      eventsCurrent:  settings.db.url + '/' + settings.db.event   + '?' + params.booking.join('&'),
+      eventsRepeat:   settings.db.url + '/' + settings.db.event   + '?' + params.booking.join('&'),
+    };
+
+
   }
 
   render(element) {
