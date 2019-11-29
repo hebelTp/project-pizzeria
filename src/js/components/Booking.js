@@ -87,7 +87,7 @@ class Booking {
     for(let item of eventsCurrent){
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
     }
-    console.log = ('thisBooking.booked', thisBooking.booked);
+    console.log  ('thisBooking.booked', thisBooking.booked);
   }
 
   makeBooked(date, hour, duration, table) {
@@ -104,6 +104,11 @@ class Booking {
     }
 
     thisBooking.booked[date][startHour].push(table);
+
+    for (let hourBlock = startHour; hourBlock < startHour + duration; hourBlock++){
+      console.log('loop', hourBlock);
+    }
+
 
 
   }
