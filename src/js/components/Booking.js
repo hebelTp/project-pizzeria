@@ -71,12 +71,8 @@ class Booking {
       .then(function([bookings, eventsCurrent, eventsRepeat]) {
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
-
   }
-
-
   // WORKS ON A PREPARED CHEAT SHEET = OBJ =  OBJ Date, OBJ Hour, ARR number of table
-
   // eslint-disable-next-line no-unused-vars
   parseData(bookings, eventsCurrent, eventsRepeat){
     const thisBooking = this;
@@ -99,14 +95,17 @@ class Booking {
 
     const startHour = utils.hourToNumber(hour);
 
+
+
     if(typeof thisBooking.booked[date][startHour] == 'undefined') {
       thisBooking.booked[date][startHour] = [];
     }
 
     thisBooking.booked[date][startHour].push(table);
 
-    for (let hourBlock = startHour; hourBlock < startHour + duration; hourBlock++){
-      console.log('loop', hourBlock);
+    for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5 ) {
+      console.log('loop', hourBlock, hourBlock);
+
     }
 
 
