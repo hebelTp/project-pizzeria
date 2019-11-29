@@ -12,6 +12,7 @@ class Booking {
     thisBooking.render(bookingElement);
     thisBooking.initWidgets();
     thisBooking.getData();
+
   }
 
   getData(){
@@ -66,14 +67,18 @@ class Booking {
           eventsRepeatResponse.json(),
         ]);
       })
-      .then(function([bookings, eventsCurrent, eventsRepeat]){
-        thisBooking.parsedData(bookings,eventsCurrent, eventsRepeat);
+
+      .then(function([bookings, eventsCurrent, eventsRepeat]) {
+        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
+
   }
+
 
   // WORKS ON A PREPARED CHEAT SHEET = OBJ =  OBJ Date, OBJ Hour, ARR number of table
 
-  parsedData(bookings,eventsCurrent, eventsRepeat){
+  // eslint-disable-next-line no-unused-vars
+  parseData(bookings, eventsCurrent, eventsRepeat){
     const thisBooking = this;
 
     thisBooking.booked = {};
@@ -98,7 +103,7 @@ class Booking {
       thisBooking.booked[date][startHour] = [];
     }
 
-    thisBooking.booked[date],[startHour].push(table);
+    thisBooking.booked[date][startHour].push(table);
 
 
   }
