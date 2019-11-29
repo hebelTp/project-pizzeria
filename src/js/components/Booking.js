@@ -49,7 +49,7 @@ class Booking {
                                       + '?' + params.eventsRepeat.join('&'),
     };
     // console.log('getData urls', urls);
-console.log(urls.booking);
+
 
     Promise.all([
       fetch(urls.booking),
@@ -67,10 +67,41 @@ console.log(urls.booking);
         ]);
       })
       .then(function([bookings, eventsCurrent, eventsRepeat]){
-        console.log(bookings,eventsCurrent, eventsRepeat);
+        thisBooking.parsedData(bookings,eventsCurrent, eventsRepeat);
       });
   }
 
+  // WORKS ON A PREPARED CHEAT SHEET = OBJ =  OBJ Date, OBJ Hour, ARR number of table
+
+  parsedData(bookings,eventsCurrent, eventsRepeat){
+    const thisBooking = this;
+
+    thisBooking.booked = {};
+
+    /**LOOP for each eventsCurrent - once time */
+    for(let item of eventsCurrent){
+      thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
+    }
+    console.log = ('thisBooking.booked', thisBooking.booked);
+  }
+
+  makeBooked(date, hour, duration, table) {
+    const thisBooking = this;
+
+    if(typeof thisBooking.booked[date] == 'undefined') {
+      thisBooking.booked[date] = {};
+    }
+
+    const startHour = utils.hourToNumber(hour);
+
+    if(typeof thisBooking.booked[date][startHour] == 'undefined') {
+      thisBooking.booked[date][startHour] = [];
+    }
+
+    thisBooking.booked[date],[startHour].push(table);
+
+
+  }
   render(element) {
     const thisBooking = this;
 
