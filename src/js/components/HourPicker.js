@@ -28,6 +28,14 @@ class HourPicker extends BaseWidget {
     } );
   }
 
+  parseValue(value) {
+    const thisWidget = this;
+
+    thisWidget.hour = utils.numberToHour(value);
+
+    return thisWidget.hour;
+  }
+
   isValid() {
     return true;
   }
