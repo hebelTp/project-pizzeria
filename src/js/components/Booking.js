@@ -107,6 +107,7 @@ class Booking {
         }
       }
     }
+    thisBooking.updateDOM();
     console.log  ('thisBooking.booked', thisBooking.booked);
   }
 
@@ -177,7 +178,7 @@ class Booking {
     thisBooking.dom = {};
     //thisBooking.dom.wrapper = ;
     thisBooking.dom.wrapper = element;
-
+    console.log(thisBooking.dom.wrapper);
     thisBooking.dom.wrapper = utils.createDOMFromHTML(generatedHTML);
 
     element.appendChild(thisBooking.dom.wrapper);
@@ -188,6 +189,7 @@ class Booking {
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
 
+
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.cart.phone);
     console.log(thisBooking.dom.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.cart.address);
@@ -196,8 +198,9 @@ class Booking {
     console.log(thisBooking.dom.peopleAmount);
     thisBooking.dom.hourAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
     console.log(thisBooking.dom.hoursAmount);
+
     thisBooking.dom.submit = thisBooking.dom.wrapper.querySelector(select.cart.formSubmit);
-    //console.log(thisBooking.dom.form);
+    console.log(thisBooking.dom.submit);
 
   }
 
@@ -228,14 +231,13 @@ class Booking {
           console.log(thisBooking.tableId);
         }
       });
-
-
-      //event do wysyłki
-      thisBooking.dom.submit.addEventListener('submit', function(event){
-        event.preventDefault();
-        thisBooking.sendBooked();
-      });
     }
+    //event do wysyłki
+    thisBooking.dom.submit.addEventListener('click', function(event){
+      event.preventDefault();
+      thisBooking.sendBooked();
+    });
+
   }
 
   sendBooked(){
@@ -254,7 +256,7 @@ class Booking {
       tableIdPicked: thisBooking.tableId,
       starters: []
     };
-    console.log(thisBooking.datePicker.value);
+    console.log(payload);
     for(let oneStarter of thisBooking.starters){
       payload.starters.push(oneStarter.value);
     }
