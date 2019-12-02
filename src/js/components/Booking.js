@@ -17,6 +17,7 @@ class Booking {
 
 
 
+
   }
 
   getData(){
@@ -219,11 +220,16 @@ class Booking {
         }
       });
     }
+
+    //event do wysyłki
+    thisBooking.sendBooked();
   }
 
+  sendBooked(){
+    const thisBooking = this;
 
-
-
+    const url = settings.db.url + '/' + settings.db.booking;
+    console.log(url);
+  }
 }
-
 export default Booking;
