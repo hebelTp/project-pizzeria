@@ -12,7 +12,7 @@ class Booking {
     thisBooking.render(bookingElement);
     thisBooking.initWidgets();
     thisBooking.getData();
-    thisBooking.chooseTable();
+    thisBooking.selectTable();
 
 
 
@@ -164,7 +164,7 @@ class Booking {
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
-    console.log(thisBooking.dom.tables);
+    //console.log(thisBooking.dom.tables);
 
   }
 
@@ -204,7 +204,7 @@ class Booking {
       thisBooking.updateDOM();
     });
   }
-  chooseTable(){
+  selectTable(){
     const thisBooking = this;
 
     for (let table of thisBooking.dom.tables) {
