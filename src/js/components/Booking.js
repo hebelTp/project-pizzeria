@@ -15,11 +15,6 @@ class Booking {
     thisBooking.initWidgets();
     thisBooking.getData();
     thisBooking.selectTable();
-
-
-
-
-
   }
 
   getData(){
@@ -46,8 +41,6 @@ class Booking {
 
     };
 
-    // console.log('getData params', params);
-
     const urls ={
       booking:        settings.db.url + '/' + settings.db.booking
                                       + '?' + params.booking.join('&'),
@@ -56,8 +49,6 @@ class Booking {
       eventsRepeat:   settings.db.url + '/' + settings.db.event
                                       + '?' + params.eventsRepeat.join('&'),
     };
-    // console.log('getData urls', urls);
-
 
     Promise.all([
       fetch(urls.booking),
@@ -108,9 +99,7 @@ class Booking {
       }
     }
     thisBooking.updateDOM();
-    console.log  ('thisBooking.booked', thisBooking.booked);
   }
-
 
   makeBooked(date, hour, duration, table) {
     const thisBooking = this;
@@ -122,7 +111,6 @@ class Booking {
     const startHour = utils.hourToNumber(hour);
 
     for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5 ) {
-      // console.log('loop',hourBlock );
 
       if(typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
@@ -134,11 +122,9 @@ class Booking {
 
   updateDOM(){
     const thisBooking = this;
-    // console.log(thisBooking.hourPicker.value)
+
     thisBooking.date = thisBooking.datePicker.value;
-    // console.log(thisBooking.date);
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-    // console.log(thisBooking.hour);
 
     let allAvailable = false;
 
@@ -166,7 +152,6 @@ class Booking {
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
-    //console.log(thisBooking.dom.tables);
   }
 
   render(element) {
@@ -176,32 +161,24 @@ class Booking {
     const generatedHTML = templates.bookingWidget();
 
     thisBooking.dom = {};
-    //thisBooking.dom.wrapper = ;
     thisBooking.dom.wrapper = element;
-    console.log(thisBooking.dom.wrapper);
     thisBooking.dom.wrapper = utils.createDOMFromHTML(generatedHTML);
-
     element.appendChild(thisBooking.dom.wrapper);
-    thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
+
+    thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount.input);
 
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
-
-
-    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.cart.phone);
-    console.log(thisBooking.dom.phone);
-    thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.cart.address);
-    console.log(thisBooking.dom.address);
+    thisBooking.dom.inputPhone = thisBooking.dom.wrapper.querySelector(select.booking.bookPhone);
+    thisBooking.dom.inputAddress = thisBooking.dom.wrapper.querySelector(select.booking.bookAddress);
+    thisBooking.dom.submit = thisBooking.dom.wrapper.querySelector(select.booking.bookTableBtn);
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-    console.log(thisBooking.dom.peopleAmount);
+    thisBooking.dom.hourBooking =  thisBooking.dom.wrapper.querySelector(select.booking.bookHourInput);
     thisBooking.dom.hourAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
-    console.log(thisBooking.dom.hoursAmount);
-
-    thisBooking.dom.submit = thisBooking.dom.wrapper.querySelector(select.cart.formSubmit);
-    console.log(thisBooking.dom.submit);
-
+    thisBooking.dom.peopleBooking = thisBooking.dom.wrapper.querySelector(select.booking.bookPeopleInput);
+    thisBooking.dom.starters  = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
   }
 
   initWidgets() {
@@ -247,20 +224,22 @@ class Booking {
     console.log(url);
 
     const payload = {
-      phone: thisBooking.dom.inputPhone.value,
-      adress: thisBooking.dom.inputAddress.value,
-      datePicked: thisBooking.datePicker.value,
-      hourPicked: thisBooking.hourPicker.value,
-      peopleAmount: thisBooking.dom.peopleAmount.value,
-      hoursAmount: thisBooking.dom.hourAmount.value,
+      bookPhone: thisBooking.dom.inputPhone.value,            //
+      bookAddress: thisBooking.dom.inputAddress.value,        //
+      datePicked: thisBooking.datePicker.value,               //
+      hourPicked: thisBooking.hourPicker.value,               //
+      bookHourInput: thisBooking.dom.hourBooking.value,
+      bookPeopleInput: thisBooking.dom.peopleBooking.value,
       tableIdPicked: thisBooking.tableId,
-      starters: []
+      starters: [],
     };
-    console.log(payload);
-    for(let oneStarter of thisBooking.starters){
-      payload.starters.push(oneStarter.value);
-    }
 
+    for(let starter of thisBooking.dom.starters) {
+      if (starter.checked == true) {
+        payload.starters.push(starter.value);
+      }
+    }
+    console.log(payload);
 
     const options = {
       method: 'POST',
@@ -274,17 +253,9 @@ class Booking {
         return response.json();
         // eslint-disable-next-line no-unused-vars
       }).then (function(parsedResponse){
+        console.log(parsedResponse);
       });
-
-
-
   }
-
-
-
-
-
-
 
 }
 export default Booking;

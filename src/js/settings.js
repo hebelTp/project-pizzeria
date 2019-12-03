@@ -49,7 +49,7 @@ export const select = {
     subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
     deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
     form: '.cart__order',
-    formSubmit: '[type="submit"]',
+    formSubmit: '.cart__order [type="submit"]',
     phone: '[name="phone"]',
     address: '[name="address"]',
   },
@@ -62,8 +62,14 @@ export const select = {
   // CODE ADDED END
   booking: {
     peopleAmount: '.people-amount',
-    hoursAmount: '.hours-amount',
+    hoursAmount: '.hours-amount' ,
     tables: '.floor-plan .table',
+    bookTableBtn: '.booking-form [type="submit"]',
+    bookPhone: '.booking-form [name="phone"]',
+    bookAddress: '.booking-form [name="address"]',
+    bookHourInput: '.booking-form [name="hours"]',
+    bookPeopleInput: '.booking-form [name="people"]',
+    starters: '[name="starter"]',
   },
   nav: {
     links: '.main-nav a',
