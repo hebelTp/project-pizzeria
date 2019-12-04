@@ -201,6 +201,7 @@ class Booking {
     for (let table of thisBooking.dom.tables) {
       table.addEventListener('click', function() {
         if (table.classList.contains(classNames.booking.tableBooked)) {
+
           return console.log('booked');
         } else {
           table.classList.toggle(classNames.booking.tableBooked);//&&table.classList.add(classNames.booking.tableBooked);
@@ -208,7 +209,7 @@ class Booking {
         }
       });
     }
-    thisBooking.dom.submit.addEventListener('click', function(event){
+    thisBooking.dom.submit.addEventListener('click', function(){
       event.preventDefault();
       thisBooking.sendBooked();
     });
@@ -223,7 +224,7 @@ class Booking {
     const payload = {
       bookPhone: thisBooking.dom.inputPhone.value,            //
       bookAddress: thisBooking.dom.inputAddress.value,        //
-      datePicked: thisBooking.datePicker.value,               //
+      datePicked: thisBooking.datePicker.correctValue,               //
       hourPicked: thisBooking.hourPicker.value,               //
       bookHourInput: thisBooking.dom.hourBooking.value,
       bookPeopleInput: thisBooking.dom.peopleBooking.value,
@@ -245,12 +246,12 @@ class Booking {
         thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
         table.classList.add(classNames.booking.tableBooked);
 
-        if (isNaN(thisBooking.tableId)) {
+        if (!isNaN(thisBooking.tableId)) {
           thisBooking.tableId = parseInt(thisBooking.tableId);
         }
-
         payload.table.push(thisBooking.tableId);
       }
+
     }
 
     const options = {
@@ -267,7 +268,11 @@ class Booking {
       }).then (function(parsedResponse){
         //console.log(parsedResponse);
         thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
+      console.log(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
       });
-  }
+  console.log(payload);
+
+    }
+
 }
 export default Booking;
