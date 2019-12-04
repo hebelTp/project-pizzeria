@@ -268,12 +268,6 @@ class Booking {
         //console.log(parsedResponse);
         thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
       });
-
-
-
-    payload.hasOwnProperty('tableIdPicked','datePicked', 'hourPicked' )
-    thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
-
   }
 }
 export default Booking;
