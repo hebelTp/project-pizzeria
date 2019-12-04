@@ -204,7 +204,7 @@ class Booking {
 
           return console.log('booked');
         } else {
-          table.classList.toggle(classNames.booking.tableBooked);//&&table.classList.add(classNames.booking.tableBooked);
+          table.classList.toggle('classNames.booking.tableBooked');//&&table.classList.add(classNames.booking.tableBooked);
           thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
         }
       });
@@ -242,7 +242,7 @@ class Booking {
     }
 
     for (let table of thisBooking.dom.tables) {
-      if (table.classList.contains(classNames.booking.tableBooked)) {
+      if (table.classList.contains('classNames.booking.tableBooked')) {
         thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
         table.classList.add(classNames.booking.tableBooked);
 
