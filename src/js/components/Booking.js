@@ -137,6 +137,7 @@ class Booking {
     }
 
     for(let table of thisBooking.dom.tables) {
+
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
       if(!isNaN(tableId)) {
         tableId = parseInt(tableId);
@@ -202,14 +203,11 @@ class Booking {
         if (table.classList.contains(classNames.booking.tableBooked)) {
           return console.log('booked');
         } else {
-          table.classList.add(classNames.booking.tableBooked);
-          return console.log('free'),
-          thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute),
-          console.log(thisBooking.tableId);
+          table.classList.toggle(classNames.booking.tableBooked);//&&table.classList.add(classNames.booking.tableBooked);
+          thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
         }
       });
     }
-    //event do wysyłki
     thisBooking.dom.submit.addEventListener('click', function(event){
       event.preventDefault();
       thisBooking.sendBooked();
@@ -221,7 +219,6 @@ class Booking {
     const thisBooking = this;
 
     const url = settings.db.url + '/' + settings.db.booking;
-    console.log(url);
 
     const payload = {
       bookPhone: thisBooking.dom.inputPhone.value,            //
@@ -230,8 +227,11 @@ class Booking {
       hourPicked: thisBooking.hourPicker.value,               //
       bookHourInput: thisBooking.dom.hourBooking.value,
       bookPeopleInput: thisBooking.dom.peopleBooking.value,
-      tableIdPicked: thisBooking.tableId,
+      //tableIdPicked: thisBooking.tableId,
       starters: [],
+      table:[],
+
+
     };
 
     for(let starter of thisBooking.dom.starters) {
@@ -239,7 +239,19 @@ class Booking {
         payload.starters.push(starter.value);
       }
     }
-    console.log(payload);
+
+    for (let table of thisBooking.dom.tables) {
+      if (table.classList.contains(classNames.booking.tableBooked)) {
+        thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
+        table.classList.add(classNames.booking.tableBooked);
+
+        if (isNaN(thisBooking.tableId)) {
+          thisBooking.tableId = parseInt(thisBooking.tableId);
+        }
+
+        payload.table.push(thisBooking.tableId);
+      }
+    }
 
     const options = {
       method: 'POST',
@@ -253,9 +265,15 @@ class Booking {
         return response.json();
         // eslint-disable-next-line no-unused-vars
       }).then (function(parsedResponse){
-        console.log(parsedResponse);
+        //console.log(parsedResponse);
+        thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
       });
-  }
 
+
+
+    payload.hasOwnProperty('tableIdPicked','datePicked', 'hourPicked' )
+    thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
+
+  }
 }
 export default Booking;
