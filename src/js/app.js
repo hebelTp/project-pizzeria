@@ -2,6 +2,8 @@ import {settings, select, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+// eslint-disable-next-line no-unused-vars
+import Home from './components/Home.js';
 
 
 
@@ -10,10 +12,11 @@ const app = {
     const thisApp = this;
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
+
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
     const idFromHash = window.location.hash.replace('#/', '');
-
+    console.log(idFromHash);
     let pageMAtchingHash = thisApp.pages[0].id;
 
     for(let page of thisApp.pages) {
@@ -36,7 +39,7 @@ const app = {
         /** run thisApp.activatePage with that id */
         thisApp.activatePage(id);
 
-        /** cange URL hash */
+        /** change URL hash */
         window.location.hash = '#/' + id;
 
       });

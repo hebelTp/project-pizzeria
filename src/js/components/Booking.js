@@ -17,59 +17,7 @@ class Booking {
     thisBooking.selectTable();
   }
 
-  getData(){
-    const thisBooking = this;
 
-    const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
-    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
-
-    const params = {
-      booking: [
-        startDateParam,
-        endDateParam,
-
-      ],
-      eventsCurrent: [
-        settings.db.notRepeatParam,
-        startDateParam,
-        endDateParam,
-      ],
-      eventsRepeat: [
-        settings.db.repeatParam,
-        endDateParam,
-      ],
-
-    };
-
-    const urls ={
-      booking:        settings.db.url + '/' + settings.db.booking
-                                      + '?' + params.booking.join('&'),
-      eventsCurrent:  settings.db.url + '/' + settings.db.event
-                                      + '?' + params.eventsCurrent.join('&'),
-      eventsRepeat:   settings.db.url + '/' + settings.db.event
-                                      + '?' + params.eventsRepeat.join('&'),
-    };
-
-    Promise.all([
-      fetch(urls.booking),
-      fetch(urls.eventsCurrent),
-      fetch(urls.eventsRepeat),
-    ])
-      .then(function(allResponses){
-        const bookingsResponse = allResponses[0];
-        const eventsCurrentResponse = allResponses[1];
-        const eventsRepeatResponse = allResponses[2];
-        return Promise.all([
-          bookingsResponse.json(),
-          eventsCurrentResponse.json(),
-          eventsRepeatResponse.json(),
-        ]);
-      })
-
-      .then(function([bookings, eventsCurrent, eventsRepeat]) {
-        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
-      });
-  }
   // WORKS ON A PREPARED CHEAT SHEET = OBJ =  OBJ Date, OBJ Hour, ARR number of table
   // eslint-disable-next-line no-unused-vars
 
@@ -195,6 +143,63 @@ class Booking {
       thisBooking.updateDOM();
     });
   }
+
+  getData(){
+    const thisBooking = this;
+
+    const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
+    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
+
+    const params = {
+      booking: [
+        startDateParam,
+        endDateParam,
+
+      ],
+      eventsCurrent: [
+        settings.db.notRepeatParam,
+        startDateParam,
+        endDateParam,
+      ],
+      eventsRepeat: [
+        settings.db.repeatParam,
+        endDateParam,
+      ],
+
+    };
+
+    const urls ={
+      booking:        settings.db.url + '/' + settings.db.booking
+                                      + '?' + params.booking.join('&'),
+      eventsCurrent:  settings.db.url + '/' + settings.db.event
+                                      + '?' + params.eventsCurrent.join('&'),
+      eventsRepeat:   settings.db.url + '/' + settings.db.event
+                                      + '?' + params.eventsRepeat.join('&'),
+    };
+
+    Promise.all([
+      fetch(urls.booking),
+      fetch(urls.eventsCurrent),
+      fetch(urls.eventsRepeat),
+    ])
+      .then(function(allResponses){
+        const bookingsResponse = allResponses[0];
+        const eventsCurrentResponse = allResponses[1];
+        const eventsRepeatResponse = allResponses[2];
+        return Promise.all([
+          bookingsResponse.json(),
+          eventsCurrentResponse.json(),
+          eventsRepeatResponse.json(),
+        ]);
+      })
+
+      .then(function([bookings, eventsCurrent, eventsRepeat]) {
+        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
+      });
+  }
+
+
+
   selectTable(){
     const thisBooking = this;
 
@@ -212,15 +217,15 @@ class Booking {
     thisBooking.dom.submit.addEventListener('click', function(){
       event.preventDefault();
       thisBooking.sendBooked();
-    });
 
+    });
   }
 
   sendBooked(){
     const thisBooking = this;
 
     const url = settings.db.url + '/' + settings.db.booking;
-
+    console.log(url);
     const payload = {
       bookPhone: thisBooking.dom.inputPhone.value,            //
       bookAddress: thisBooking.dom.inputAddress.value,        //
@@ -241,7 +246,7 @@ class Booking {
       }
     }
 
-    for (let table of thisBooking.dom.tables) {
+    for (let table of this.dom.tables) {
       if (table.classList.contains('classNames.booking.tableBooked')) {
         thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
         table.classList.add(classNames.booking.tableBooked);
@@ -267,12 +272,13 @@ class Booking {
         // eslint-disable-next-line no-unused-vars
       }).then (function(parsedResponse){
         //console.log(parsedResponse);
-        thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
-      console.log(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
-      });
-  console.log(payload);
 
-    }
+        console.log(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
+      // jeśli nie przechodzi payload.table to nie wysyłaj
+      });
+    console.log(payload);
+    thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
+  }
 
 }
 export default Booking;
