@@ -209,10 +209,10 @@ class Booking {
 
         //   return console.log('booked');
         // } else {
-          table.classList.toggle('selected');//&&table.classList.add(classNames.booking.tableBooked);
-          thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
-        
-       });
+        table.classList.toggle('selected');//&&table.classList.add(classNames.booking.tableBooked);
+        thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
+
+      });
     }
     thisBooking.dom.submit.addEventListener('click', function(){
       event.preventDefault();
