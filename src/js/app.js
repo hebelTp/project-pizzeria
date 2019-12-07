@@ -124,6 +124,72 @@ const app = {
     thisApp.booking = new Booking(bookingElem);
   },
 
+  initCarousel(){
+    // eslint-disable-next-line no-unused-vars
+
+
+
+    const review = [];
+
+
+    review[0] = {
+      title: 'Nulla',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      author: 'Efficitur N.',
+
+    };
+    review[1] = {
+      title: 'Vestibulum !!!',
+      content: 'Aenean vitae quam suscipit, interdum arcu nec,',
+      author: 'Pellentesque A.',
+    };
+    review[2] = {
+      title: 'Lobortis ???',
+      content: 'Mauris maximus ipsum sed.',
+      author: 'Vel F.',
+    };
+    let i = 0;
+    console.log(review[0]);
+    //console.log(review);
+
+    const dots = document.querySelectorAll('.carousel-dots i');
+    console.log(dots);
+
+    function changeTitle(){
+
+      const title = document.querySelector('.review-title');
+      console.log(title);
+      const pean = document.querySelector('.reviev-content');
+      console.log(pean);
+      const author = document.querySelector('.review-author');
+      console.log(author);
+
+      for (let dot of dots) {
+        if (dot.id == i + 1) {  // +1 ??
+          console.log(dot.id);
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+        title.innerHTML = review[i].title;
+        pean.innerHTML = review[i].content;
+        author.innerHTML = review[i].author;
+      }
+
+      if(i < review.length -1) {
+        i++;
+      } else {
+        i=0;
+      }
+    }
+    changeTitle();
+
+    setInterval(() => {
+      changeTitle();
+    }, 3000);
+  },
+
+
   init: function() {
     const thisApp = this;
     // console.log('*** App starting ***');
@@ -137,6 +203,7 @@ const app = {
     //thisApp.initMenu();
     thisApp.initCart();
     thisApp.initBooking();
+    thisApp.initCarousel();
 
 
   },
