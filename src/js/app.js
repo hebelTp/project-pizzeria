@@ -12,6 +12,7 @@ const app = {
     const thisApp = this;
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
+    console.log(thisApp.pages);
 
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
@@ -135,38 +136,31 @@ const app = {
     review[0] = {
       title: 'Nulla',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      author: 'Efficitur N.',
+      author: '-Efficitur N.',
 
     };
     review[1] = {
       title: 'Vestibulum !!!',
       content: 'Aenean vitae quam suscipit, interdum arcu nec,',
-      author: 'Pellentesque A.',
+      author: '-Pellentesque A.',
     };
     review[2] = {
       title: 'Lobortis ???',
       content: 'Mauris maximus ipsum sed.',
-      author: 'Vel F.',
+      author: '-Vel F.',
     };
     let i = 0;
-    console.log(review[0]);
-    //console.log(review);
 
     const dots = document.querySelectorAll('.carousel-dots i');
-    console.log(dots);
 
     function changeTitle(){
 
       const title = document.querySelector('.review-title');
-      console.log(title);
       const pean = document.querySelector('.reviev-content');
-      console.log(pean);
       const author = document.querySelector('.review-author');
-      console.log(author);
 
       for (let dot of dots) {
         if (dot.id == i + 1) {  // +1 ??
-          console.log(dot.id);
           dot.classList.add('active');
         } else {
           dot.classList.remove('active');
