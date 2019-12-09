@@ -15,6 +15,7 @@ class Booking {
     thisBooking.initWidgets();
     thisBooking.getData();
     thisBooking.selectTable();
+
   }
 
 
@@ -73,7 +74,6 @@ class Booking {
 
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-
     let allAvailable = false;
 
     if(
@@ -101,6 +101,8 @@ class Booking {
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
+
+    thisBooking.rangeColourHour();
   }
 
   render(element) {
@@ -198,8 +200,6 @@ class Booking {
       });
   }
 
-
-
   selectTable(){
     const thisBooking = this;
 
@@ -233,7 +233,6 @@ class Booking {
       hourPicked: thisBooking.hourPicker.value,               //
       bookHourInput: thisBooking.dom.hourBooking.value,
       bookPeopleInput: thisBooking.dom.peopleBooking.value,
-      //tableIdPicked: thisBooking.tableId,
       starters: [],
       table:[],
 
@@ -281,5 +280,29 @@ class Booking {
 
   }
 
+  rangeColourHour ()
+  {
+    const thisBooking = this;
+
+    if(typeof thisBooking.booked[thisBooking.date][thisBooking.hour] == 'undefined') {
+      thisBooking.booked[thisBooking.date][thisBooking.hour] = [];
+    }
+
+    const tableBookedInHour = thisBooking.booked[thisBooking.date][thisBooking.hour].length;
+
+    console.log(tableBookedInHour);
+    thisBooking.dom.rangeSlider = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.slider);
+    const slider = thisBooking.dom.rangeSlider;
+    if (tableBookedInHour <= 1 || typeof tableBookedInHour == 'undefined') {
+      slider.style.background = '#008D0F';
+    } else if
+    (tableBookedInHour == 2){
+      slider.style.background = '#FFA600';
+    }
+    else if
+    (tableBookedInHour == 3){
+      slider.style.background = '#FF0000';
+    }
+  }
 }
 export default Booking;
