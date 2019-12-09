@@ -232,6 +232,7 @@
   position: absolute;
   font-size: 22px;
   cursor: pointer;
+
   i {
     display: inline-block;
     left: 5%;
@@ -240,7 +241,6 @@
     position: relative;
   }
 }
-
 
 .gallery-img:hover > .gallery-ico {
   display: inline-block;
@@ -255,4 +255,8 @@
 .gallery-ico > .fa-share-alt:hover {
   color: $color-main;
   opacity: 1;
+}
+
+.footer {
+  color: $color-main;
 }
