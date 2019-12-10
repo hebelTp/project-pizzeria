@@ -39,8 +39,9 @@ export const select = {
       wrapper: '.hour-picker',
       input: 'input[type="range"]',
       output: '.output',
+      //slider: '.rangeSlider__fill',
       slider: '.rangeSlider',
-      //slider1: '.rangeSlider__handle',
+
     },
     slider1:{
       slider2:'.rangeSlider',

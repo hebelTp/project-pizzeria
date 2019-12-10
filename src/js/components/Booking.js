@@ -206,8 +206,6 @@ class Booking {
     for (let table of thisBooking.dom.tables) {
       table.addEventListener('click', function() {
         // if (table.classList.contains(classNames.booking.tableBooked)) {
-
-        //   return console.log('booked');
         // } else {
         table.classList.toggle('selected');//&&table.classList.add(classNames.booking.tableBooked);
         thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
@@ -225,7 +223,6 @@ class Booking {
     const thisBooking = this;
 
     const url = settings.db.url + '/' + settings.db.booking;
-    console.log(url);
     const payload = {
       bookPhone: thisBooking.dom.inputPhone.value,            //
       bookAddress: thisBooking.dom.inputAddress.value,        //
@@ -270,38 +267,66 @@ class Booking {
         return response.json();
         // eslint-disable-next-line no-unused-vars
       }).then (function(parsedResponse){
-        //console.log(parsedResponse);
-
-        console.log(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
         thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
         // jeśli nie przechodzi payload.table to nie wysyłaj
       });
-    console.log(payload);
-
   }
 
-  rangeColourHour ()
-  {
+  rangeColourHour () {
     const thisBooking = this;
 
     if(typeof thisBooking.booked[thisBooking.date][thisBooking.hour] == 'undefined') {
       thisBooking.booked[thisBooking.date][thisBooking.hour] = [];
     }
-
+    const bookedHoursHa = thisBooking.booked[thisBooking.date];
     const tableBookedInHour = thisBooking.booked[thisBooking.date][thisBooking.hour].length;
-
-    console.log(tableBookedInHour);
     thisBooking.dom.rangeSlider = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.slider);
+
     const slider = thisBooking.dom.rangeSlider;
-    if (tableBookedInHour <= 1 || typeof tableBookedInHour == 'undefined') {
-      slider.style.background = '#008D0F';
-    } else if
-    (tableBookedInHour == 2){
-      slider.style.background = '#FFA600';
+    // eslint-disable-next-line no-unused-vars
+    const hoursBookedTables = thisBooking.booked[thisBooking.date][thisBooking.hour];
+
+    const rangeColor = [];
+    const firstInterval = [];
+    // eslint-disable-next-line no-unused-vars
+    const newRangeColor = [];
+
+    const secondInterval = [];
+
+    let green = '#008D0F',
+      orange = '#FFA600',
+      red = '#FF0000';
+
+    for (let i = 0 ; i < 24; i ++) {
+      let hourInterval = 100/24;
+      rangeColor.push(i*hourInterval);
     }
-    else if
-    (tableBookedInHour == 3){
-      slider.style.background = '#FF0000';
+
+    for (let i = 0 ; i < 24; i+=2)  {
+      let hourInterval = 100/24;
+      firstInterval.push(i*hourInterval);
+    }
+    firstInterval.forEach(function(a) {
+      return a;
+    });
+
+    for (let i = 1; i < 24; i+=2){
+      let hourInterval = 100/24;
+      secondInterval.push(i*hourInterval);
+    }
+    secondInterval.forEach(function(b){
+      return(b);
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    for(let bookedHourHa in bookedHoursHa) {
+      if (tableBookedInHour <= 1) {
+        slider.style.background = green;
+      } if (tableBookedInHour == 2) {
+        slider.style.background = orange;
+      } if (tableBookedInHour == 3){
+        slider.style.background = red;
+      }
     }
   }
 }
