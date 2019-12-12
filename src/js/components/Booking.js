@@ -15,7 +15,7 @@ class Booking {
     thisBooking.initWidgets();
     thisBooking.getData();
     thisBooking.selectTable();
-
+    // thisBooking.sendBooked();
 
 
   }
@@ -25,18 +25,18 @@ class Booking {
   // eslint-disable-next-line no-unused-vars
 
   parseData(bookings, eventsCurrent, eventsRepeat){
-    // console.log('parseData    .....zaczyna', bookings, eventsCurrent, eventsRepeat)
     const thisBooking = this;
-    // console.log(thisBooking);
     thisBooking.booked = {};
 
     for(let item of bookings){
-      thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
+
+
+      thisBooking.makeBooked(item.date, item.hour, item.duration, [item.table]);
     }
 
     /**LOOP for each eventsCurrent - once time */
     for(let item of eventsCurrent){
-      thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
+      thisBooking.makeBooked(item.date, item.hour, item.duration, [item.table]);
     }
 
     const minDate = thisBooking.datePicker.minDate;
@@ -46,23 +46,22 @@ class Booking {
       if(item.repeat == 'daily'){
         for(let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate,1 )) {
 
-          thisBooking.makeBooked(utils.dateToStr(loopDate), item.hour, item.duration, item.table);
+          thisBooking.makeBooked(utils.dateToStr(loopDate), item.hour, item.duration, [item.table]);
         }
       }
     }
 
 
     thisBooking.updateDOM();
+    thisBooking.rangeColourHour();
 
 
   }
 
   makeBooked(date, hour, duration, tablesArray) {
-    // console.log('table', tablesArray);
 
     const thisBooking = this;
-    // console.log(thisBooking);
-    if(typeof thisBooking.booked[date] == 'undefined') {
+    if (typeof thisBooking.booked[date] == 'undefined') {
       thisBooking.booked[date] = {};
     }
 
@@ -76,9 +75,15 @@ class Booking {
       }
 
       thisBooking.booked[date][hourBlock] = thisBooking.booked[date][hourBlock].concat(tablesArray);
-      //console.log('thisBooking.booked[date][hourBlock]', thisBooking.booked[date][hourBlock])
-      //thisBooking.booked[date][hourBlock].push(table);
-
+      const duplicat = [];
+      for (let i = 0; i < thisBooking.booked[date][hourBlock].length; i++) {
+        const tableId = thisBooking.booked[date][hourBlock][i];
+        if(!duplicat.includes(tableId)) {
+          duplicat.push(tableId);
+        }
+      }
+      thisBooking.booked[date][hourBlock] = duplicat;
+      console.log(duplicat);
     }
 
   }
@@ -115,13 +120,11 @@ class Booking {
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
-    console.log(thisBooking);
     thisBooking.rangeColourHour();
   }
 
   render(element) {
     const thisBooking = this;
-    //console.log(thisBooking);
     /** generate HTML based on template */
     const generatedHTML = templates.bookingWidget();
 
@@ -156,6 +159,7 @@ class Booking {
 
 
     thisBooking.dom.wrapper.addEventListener('updated', function() {
+    //  thisBooking.rangeColourHour();
       thisBooking.updateDOM();
     });
 
@@ -164,7 +168,6 @@ class Booking {
 
   getData(){
     const thisBooking = this;
-    // console.log(thisBooking);
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
     const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
 
@@ -218,11 +221,16 @@ class Booking {
 
   selectTable(){
     const thisBooking = this;
+
     for (let table of thisBooking.dom.tables) {
       table.addEventListener('click', function() {
         // if (table.classList.contains(classNames.booking.tableBooked)) {
         // } else {
         table.classList.toggle('selected');//&&table.classList.add(classNames.booking.tableBooked);
+        if (table.classList.contains('booked')) {     //// nadpisano
+          table.classList.remove('selected');          //// nadpisano
+        }                                          //// nadpisano
+
         thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
 
       });
@@ -232,13 +240,11 @@ class Booking {
       thisBooking.sendBooked();
 
     });
-    console.log(thisBooking);
   }
 
   sendBooked(){
 
     const thisBooking = this;
-    console.log(thisBooking);
 
     const url = settings.db.url + '/' + settings.db.booking;
     const payload = {
@@ -259,18 +265,33 @@ class Booking {
         payload.starters.push(starter.value);
       }
     }
-
     for (let table of this.dom.tables) {
+
       if (table.classList.contains('selected')) {
         thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
-        table.classList.add(classNames.booking.tableBooked);
+        table.classList.add('booked');
         table.classList.remove('selected');
         if (!isNaN(thisBooking.tableId)) {
           thisBooking.tableId = parseInt(thisBooking.tableId);
         }
         payload.table.push(thisBooking.tableId);
       }
+
+
+      // for (let table of thisBooking.dom.tables) {
+      //   if (table.classList.contains('selected')) {
+      //     thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
+
+      //     table.classList.add(classNames.booking.tableBooked);
+      //     table.classList.remove('selected');
+      //     if (!isNaN(thisBooking.tableId)) {
+      //       thisBooking.tableId = parseInt(thisBooking.tableId);
+      //     }
+      //     payload.table.push(thisBooking.tableId);
+
+
     }
+
 
     const options = {
       method: 'POST',
@@ -284,13 +305,12 @@ class Booking {
         return response.json();
         // eslint-disable-next-line no-unused-vars
       }).then (function(parsedResponse){
-        thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
-        console.log(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table)
-        // console.log('this booking', thisBooking);
+
+        console.log('this booking', thisBooking);
         // jeśli nie przechodzi payload.table to nie wysyłaj
       });
-    //thisBooking.rangeColourHour();
-
+    thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
+    console.log(payload);
   }
 
   rangeColourHour() {
@@ -312,7 +332,7 @@ class Booking {
       (bookedHours[bookedHour].length === 2) {
         sliderDataForDay.push (' orange ' + firstOfInterval + '%, ' + 'orange ' + secondOfInterval + '% ');
       } else if
-      (bookedHours[bookedHour].length <= 3){
+      (bookedHours[bookedHour].length === 3){
         sliderDataForDay.push (' red ' + firstOfInterval + '%, ' + 'red ' + secondOfInterval + '% ');
       }
     }
