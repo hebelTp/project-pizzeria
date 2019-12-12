@@ -312,7 +312,7 @@ class Booking {
       (bookedHours[bookedHour].length === 2) {
         sliderDataForDay.push (' orange ' + firstOfInterval + '%, ' + 'orange ' + secondOfInterval + '% ');
       } else if
-      (bookedHours[bookedHour].length === 3){
+      (bookedHours[bookedHour].length <= 3){
         sliderDataForDay.push (' red ' + firstOfInterval + '%, ' + 'red ' + secondOfInterval + '% ');
       }
     }
