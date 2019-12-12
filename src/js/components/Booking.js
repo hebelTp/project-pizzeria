@@ -16,6 +16,8 @@ class Booking {
     thisBooking.getData();
     thisBooking.selectTable();
 
+
+
   }
 
 
@@ -47,6 +49,7 @@ class Booking {
         }
       }
     }
+
     thisBooking.updateDOM();
   }
 
@@ -274,60 +277,30 @@ class Booking {
 
   rangeColourHour () {
     const thisBooking = this;
-
-    if(typeof thisBooking.booked[thisBooking.date][thisBooking.hour] == 'undefined') {
-      thisBooking.booked[thisBooking.date][thisBooking.hour] = [];
-    }
-    const bookedHoursHa = thisBooking.booked[thisBooking.date];
-    const tableBookedInHour = thisBooking.booked[thisBooking.date][thisBooking.hour].length;
+    const bookedHours = thisBooking.booked[thisBooking.date];
+    const sliderDataForDay = [];
     thisBooking.dom.rangeSlider = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.slider);
 
     const slider = thisBooking.dom.rangeSlider;
-    // eslint-disable-next-line no-unused-vars
-    const hoursBookedTables = thisBooking.booked[thisBooking.date][thisBooking.hour];
 
-    const rangeColor = [];
-    const firstInterval = [];
-    // eslint-disable-next-line no-unused-vars
-    const newRangeColor = [];
+    for (let bookedHour in bookedHours){
+      const firstOfInterval = ((bookedHour -12)*100)/12;
+      const secondOfInterval = ((bookedHour-12+0.5)*100)/12;
 
-    const secondInterval = [];
-
-    let green = '#008D0F',
-      orange = '#FFA600',
-      red = '#FF0000';
-
-    for (let i = 0 ; i < 24; i ++) {
-      let hourInterval = 100/24;
-      rangeColor.push(i*hourInterval);
-    }
-
-    for (let i = 0 ; i < 24; i+=2)  {
-      let hourInterval = 100/24;
-      firstInterval.push(i*hourInterval);
-    }
-    firstInterval.forEach(function(a) {
-      return a;
-    });
-
-    for (let i = 1; i < 24; i+=2){
-      let hourInterval = 100/24;
-      secondInterval.push(i*hourInterval);
-    }
-    secondInterval.forEach(function(b){
-      return(b);
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    for(let bookedHourHa in bookedHoursHa) {
-      if (tableBookedInHour <= 1) {
-        slider.style.background = green;
-      } if (tableBookedInHour == 2) {
-        slider.style.background = orange;
-      } if (tableBookedInHour == 3){
-        slider.style.background = red;
+      if
+      (bookedHours[bookedHour].length <=1) {
+        sliderDataForDay.push (' green ' + firstOfInterval + '%, green ' + secondOfInterval + '%');
+      } else if
+      (bookedHours[bookedHour].length == 2) {
+        sliderDataForDay.push (' orange ' + firstOfInterval + '%, ' + 'orange ' + secondOfInterval + '% ');
+      } else if
+      (bookedHours[bookedHour].length == 3){
+        sliderDataForDay.push (' red ' + firstOfInterval + '%, ' + 'red ' + secondOfInterval + '% ');
       }
     }
+
+    const greenOrangeRedString = sliderDataForDay.join();
+    slider.style.background =  'linear-gradient(to right, ' + greenOrangeRedString + ')';
   }
 }
 export default Booking;
