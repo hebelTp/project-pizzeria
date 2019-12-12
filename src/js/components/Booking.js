@@ -83,7 +83,6 @@ class Booking {
         }
       }
       thisBooking.booked[date][hourBlock] = duplicat;
-      console.log(duplicat);
     }
 
   }
@@ -306,11 +305,9 @@ class Booking {
         // eslint-disable-next-line no-unused-vars
       }).then (function(parsedResponse){
 
-        console.log('this booking', thisBooking);
         // jeśli nie przechodzi payload.table to nie wysyłaj
       });
     thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
-    console.log(payload);
   }
 
   rangeColourHour() {
