@@ -25,8 +25,9 @@ class Booking {
   // eslint-disable-next-line no-unused-vars
 
   parseData(bookings, eventsCurrent, eventsRepeat){
+    // console.log('parseData    .....zaczyna', bookings, eventsCurrent, eventsRepeat)
     const thisBooking = this;
-
+    // console.log(thisBooking);
     thisBooking.booked = {};
 
     for(let item of bookings){
@@ -50,12 +51,17 @@ class Booking {
       }
     }
 
+
     thisBooking.updateDOM();
+
+
   }
 
-  makeBooked(date, hour, duration, table) {
-    const thisBooking = this;
+  makeBooked(date, hour, duration, tablesArray) {
+    // console.log('table', tablesArray);
 
+    const thisBooking = this;
+    // console.log(thisBooking);
     if(typeof thisBooking.booked[date] == 'undefined') {
       thisBooking.booked[date] = {};
     }
@@ -66,10 +72,15 @@ class Booking {
 
       if(typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
+
       }
 
-      thisBooking.booked[date][hourBlock].push(table);
+      thisBooking.booked[date][hourBlock] = thisBooking.booked[date][hourBlock].concat(tablesArray);
+      //console.log('thisBooking.booked[date][hourBlock]', thisBooking.booked[date][hourBlock])
+      //thisBooking.booked[date][hourBlock].push(table);
+
     }
+
   }
 
   updateDOM(){
@@ -104,13 +115,13 @@ class Booking {
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
-
+    console.log(thisBooking);
     thisBooking.rangeColourHour();
   }
 
   render(element) {
     const thisBooking = this;
-
+    //console.log(thisBooking);
     /** generate HTML based on template */
     const generatedHTML = templates.bookingWidget();
 
@@ -147,11 +158,13 @@ class Booking {
     thisBooking.dom.wrapper.addEventListener('updated', function() {
       thisBooking.updateDOM();
     });
+
+
   }
 
   getData(){
     const thisBooking = this;
-
+    // console.log(thisBooking);
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
     const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
 
@@ -205,7 +218,6 @@ class Booking {
 
   selectTable(){
     const thisBooking = this;
-
     for (let table of thisBooking.dom.tables) {
       table.addEventListener('click', function() {
         // if (table.classList.contains(classNames.booking.tableBooked)) {
@@ -220,10 +232,13 @@ class Booking {
       thisBooking.sendBooked();
 
     });
+    console.log(thisBooking);
   }
 
   sendBooked(){
+
     const thisBooking = this;
+    console.log(thisBooking);
 
     const url = settings.db.url + '/' + settings.db.booking;
     const payload = {
@@ -246,16 +261,15 @@ class Booking {
     }
 
     for (let table of this.dom.tables) {
-      if (table.classList.contains(classNames.booking.tableBooked)) {
+      if (table.classList.contains('selected')) {
         thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
         table.classList.add(classNames.booking.tableBooked);
-
+        table.classList.remove('selected');
         if (!isNaN(thisBooking.tableId)) {
           thisBooking.tableId = parseInt(thisBooking.tableId);
         }
         payload.table.push(thisBooking.tableId);
       }
-
     }
 
     const options = {
@@ -271,11 +285,15 @@ class Booking {
         // eslint-disable-next-line no-unused-vars
       }).then (function(parsedResponse){
         thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
+        console.log(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table)
+        // console.log('this booking', thisBooking);
         // jeśli nie przechodzi payload.table to nie wysyłaj
       });
+    //thisBooking.rangeColourHour();
+
   }
 
-  rangeColourHour () {
+  rangeColourHour() {
     const thisBooking = this;
     const bookedHours = thisBooking.booked[thisBooking.date];
     const sliderDataForDay = [];
@@ -291,10 +309,10 @@ class Booking {
       (bookedHours[bookedHour].length <=1) {
         sliderDataForDay.push (' green ' + firstOfInterval + '%, green ' + secondOfInterval + '%');
       } else if
-      (bookedHours[bookedHour].length == 2) {
+      (bookedHours[bookedHour].length === 2) {
         sliderDataForDay.push (' orange ' + firstOfInterval + '%, ' + 'orange ' + secondOfInterval + '% ');
       } else if
-      (bookedHours[bookedHour].length == 3){
+      (bookedHours[bookedHour].length === 3){
         sliderDataForDay.push (' red ' + firstOfInterval + '%, ' + 'red ' + secondOfInterval + '% ');
       }
     }
