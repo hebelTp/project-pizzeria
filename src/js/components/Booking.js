@@ -117,6 +117,8 @@ class Booking {
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
+        //table.classList.remove(classNames.booking.tableSelected);
+
       }
     }
     thisBooking.rangeColourHour();
@@ -133,19 +135,23 @@ class Booking {
     element.appendChild(thisBooking.dom.wrapper);
 
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount.input);
-
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
     thisBooking.dom.inputPhone = thisBooking.dom.wrapper.querySelector(select.booking.bookPhone);
     thisBooking.dom.inputAddress = thisBooking.dom.wrapper.querySelector(select.booking.bookAddress);
+
     thisBooking.dom.submit = thisBooking.dom.wrapper.querySelector(select.booking.bookTableBtn);
+
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-    thisBooking.dom.hourBooking =  thisBooking.dom.wrapper.querySelector(select.booking.bookHourInput);
+
+    //thisBooking.dom.hourBooking =  thisBooking.dom.wrapper.querySelector(select.booking.bookHourInput);
     thisBooking.dom.hourAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
     thisBooking.dom.peopleBooking = thisBooking.dom.wrapper.querySelector(select.booking.bookPeopleInput);
     thisBooking.dom.starters  = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
+
+
   }
 
   initWidgets() {
@@ -250,12 +256,12 @@ console.log(params);
 
     const url = settings.db.url + '/' + settings.db.booking;
     const payload = {
+      datePicked: thisBooking.datePicker.correctValue,               //
+      hourPicked: thisBooking.hourPicker.value,
       bookPhone: thisBooking.dom.inputPhone.value,            //
       bookAddress: thisBooking.dom.inputAddress.value,        //
-      datePicked: thisBooking.datePicker.correctValue,               //
-      hourPicked: thisBooking.hourPicker.value,               //
-      bookHourInput: thisBooking.dom.hourBooking.value,
-      bookPeopleInput: thisBooking.dom.peopleBooking.value,
+      bookHourInput: thisBooking.hoursAmount.value,
+      bookPeopleInput: thisBooking.peopleAmount.value,
       starters: [],
       table:[],
 
@@ -327,21 +333,21 @@ console.log(payload);
     const slider = thisBooking.dom.rangeSlider;
 
     for (let bookedHour in bookedHours){
-      const firstOfInterval = ((bookedHour -12)*100)/12;
-      const secondOfInterval = ((bookedHour-12+0.5)*100)/12;
+      const firstOfInterval = ((bookedHour - 12) * 100) / 12;
+      const secondOfInterval = ((bookedHour - 12 + 0.5) * 100) / 12;
 
       if
       (bookedHours[bookedHour].length <=1) {
-        sliderDataForDay.push (' green ' + firstOfInterval + '%, green ' + secondOfInterval + '%');
+        sliderDataForDay.push ('/*' + bookedHour + '*/green ' + firstOfInterval + '%, green ' + secondOfInterval + '%');
       } else if
       (bookedHours[bookedHour].length === 2) {
-        sliderDataForDay.push (' orange ' + firstOfInterval + '%, ' + 'orange ' + secondOfInterval + '% ');
+        sliderDataForDay.push ('/*' + bookedHour + '*/orange ' + firstOfInterval + '%, ' + 'orange ' + secondOfInterval + '% ');
       } else if
       (bookedHours[bookedHour].length === 3){
-        sliderDataForDay.push (' red ' + firstOfInterval + '%, ' + 'red ' + secondOfInterval + '% ');
+        sliderDataForDay.push ('/*' + bookedHour + '*/red ' + firstOfInterval + '%, ' + 'red ' + secondOfInterval + '% ');
       }
     }
-
+    sliderDataForDay.sort();
     const greenOrangeRedString = sliderDataForDay.join();
     slider.style.background =  'linear-gradient(to right, ' + greenOrangeRedString + ')';
   }
