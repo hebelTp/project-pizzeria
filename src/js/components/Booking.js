@@ -187,7 +187,7 @@ class Booking {
       ],
 
     };
-
+console.log(params);
     const urls ={
       booking:        settings.db.url + '/' + settings.db.booking
                                       + '?' + params.booking.join('&'),
@@ -215,6 +215,9 @@ class Booking {
 
       .then(function([bookings, eventsCurrent, eventsRepeat]) {
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
+      console.log(bookings);
+      console.log(eventsCurrent);
+      console.log(eventsRepeat);
       });
   }
 
@@ -226,9 +229,9 @@ class Booking {
         // if (table.classList.contains(classNames.booking.tableBooked)) {
         // } else {
         table.classList.toggle('selected');//&&table.classList.add(classNames.booking.tableBooked);
-        if (table.classList.contains('booked')) {     //// nadpisano
-          table.classList.remove('selected');          //// nadpisano
-        }                                          //// nadpisano
+        // if (table.classList.contains('booked')) {     //// nadpisano
+        //   table.classList.remove('selected');          //// nadpisano
+        // }                                          //// nadpisano
 
         thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
 
@@ -258,7 +261,7 @@ class Booking {
 
 
     };
-
+console.log(payload);
     for(let starter of thisBooking.dom.starters) {
       if (starter.checked == true) {
         payload.starters.push(starter.value);
@@ -304,10 +307,15 @@ class Booking {
         return response.json();
         // eslint-disable-next-line no-unused-vars
       }).then (function(parsedResponse){
-
+        thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
         // jeśli nie przechodzi payload.table to nie wysyłaj
+        console.log(payload.datePicked);
+        console.log(payload.hourPicked);
+        console.log(payload.bookHourInput);
+        console.log(payload.table);
+
       });
-    thisBooking.makeBooked(payload.datePicked, payload.hourPicked, payload.bookHourInput, payload.table);
+
   }
 
   rangeColourHour() {
