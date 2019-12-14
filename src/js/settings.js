@@ -41,11 +41,8 @@ export const select = {
       output: '.output',
       //slider: '.rangeSlider__fill',
       slider: '.rangeSlider',
-
     },
-    slider1:{
-      slider2:'.rangeSlider',
-    }
+
   },
   // CODE ADDED START
   cart: {
