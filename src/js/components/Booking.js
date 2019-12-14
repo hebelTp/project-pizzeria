@@ -61,6 +61,7 @@ class Booking {
   makeBooked(date, hour, duration, tablesArray) {
 
     const thisBooking = this;
+
     if (typeof thisBooking.booked[date] == 'undefined') {
       thisBooking.booked[date] = {};
     }
@@ -84,7 +85,7 @@ class Booking {
       }
       thisBooking.booked[date][hourBlock] = duplicat;
     }
-
+    console.log(thisBooking.booked);
   }
 
   updateDOM(){
@@ -172,7 +173,9 @@ class Booking {
   }
 
   getData(){
+
     const thisBooking = this;
+
     const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
     const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
 
@@ -193,7 +196,7 @@ class Booking {
       ],
 
     };
-console.log(params);
+    console.log(params);
     const urls ={
       booking:        settings.db.url + '/' + settings.db.booking
                                       + '?' + params.booking.join('&'),
@@ -221,10 +224,11 @@ console.log(params);
 
       .then(function([bookings, eventsCurrent, eventsRepeat]) {
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
-      console.log(bookings);
-      console.log(eventsCurrent);
-      console.log(eventsRepeat);
+        console.log(bookings);
+        console.log(eventsCurrent);
+        console.log(eventsRepeat);
       });
+
   }
 
   selectTable(){
@@ -253,7 +257,7 @@ console.log(params);
   sendBooked(){
 
     const thisBooking = this;
-
+    console.log(thisBooking.booked);
     const url = settings.db.url + '/' + settings.db.booking;
     const payload = {
       datePicked: thisBooking.datePicker.correctValue,               //
@@ -267,7 +271,7 @@ console.log(params);
 
 
     };
-console.log(payload);
+    console.log(payload);
     for(let starter of thisBooking.dom.starters) {
       if (starter.checked == true) {
         payload.starters.push(starter.value);
@@ -335,18 +339,19 @@ console.log(payload);
     for (let bookedHour in bookedHours){
       const firstOfInterval = ((bookedHour - 12) * 100) / 12;
       const secondOfInterval = ((bookedHour - 12 + 0.5) * 100) / 12;
+      if (bookedHour < 24 ) {
+        if
+        (bookedHours[bookedHour].length <=1) {
+          sliderDataForDay.push ('/*' + bookedHour + '*/green ' + firstOfInterval + '%, green ' + secondOfInterval + '%');
+        } else if
+        (bookedHours[bookedHour].length === 2) {
+          sliderDataForDay.push ('/*' + bookedHour + '*/orange ' + firstOfInterval + '%, ' + 'orange ' + secondOfInterval + '% ');
+        } else if
+        (bookedHours[bookedHour].length === 3){
+          sliderDataForDay.push ('/*' + bookedHour + '*/red ' + firstOfInterval + '%, ' + 'red ' + secondOfInterval + '% ');
+        }
 
-      if
-      (bookedHours[bookedHour].length <=1) {
-        sliderDataForDay.push ('/*' + bookedHour + '*/green ' + firstOfInterval + '%, green ' + secondOfInterval + '%');
-      } else if
-      (bookedHours[bookedHour].length === 2) {
-        sliderDataForDay.push ('/*' + bookedHour + '*/orange ' + firstOfInterval + '%, ' + 'orange ' + secondOfInterval + '% ');
-      } else if
-      (bookedHours[bookedHour].length === 3){
-        sliderDataForDay.push ('/*' + bookedHour + '*/red ' + firstOfInterval + '%, ' + 'red ' + secondOfInterval + '% ');
-      }
-    }
+      }    }
     sliderDataForDay.sort();
     const greenOrangeRedString = sliderDataForDay.join();
     slider.style.background =  'linear-gradient(to right, ' + greenOrangeRedString + ')';
